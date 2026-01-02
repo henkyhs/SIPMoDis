@@ -19,7 +19,7 @@
 		<!-- Tanggal Peminjam -->
         <div class="form-group">
 			<label for="tanggal_pinjam">Tanggal Peminjaman</label>
-			<input type="date" name="tglPeminjaman" id="tglPeminjaman" class="form-control" required>
+			<input type="date" name="tglPeminjaman" id="tglPeminjaman" min="<?= date('Y-m-d'); ?>" class="form-control" required>
 		</div>
         
         <!-- <div class="mb-3">
