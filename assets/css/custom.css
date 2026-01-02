@@ -1,0 +1,66 @@
+.bg-gradient-kantor {
+  background-color: #212c5f;
+  background-image: linear-gradient(180deg, #212c5f 10%, #0b1026 100%);
+  background-size: cover;
+}
+
+.badge-navy {
+  background-color: #212c5f;
+  color: #ffffff;
+}
+
+.badge-orange {
+    background-color: #fd7e14;
+    color: #ffffff;
+}
+.range-option input[type="radio"] {
+  display: none;
+}
+
+/* label sebagai card */
+.range-card {
+  display: block;
+  cursor: pointer;
+  height: 100%;
+  margin-bottom: 0;
+}
+
+/* card default (polos) */
+.range-card .card {
+  border: 1px solid #e3e6f0;
+  border-left: .25rem solid transparent;
+  transition: .15s ease-in-out;
+}
+
+/* hover effect */
+.range-card .card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 .15rem 1.75rem 0 rgba(61, 146, 220, 0.22) !important;
+}
+
+/* title & subtitle */
+.range-title {
+  font-weight: 700;
+  color: #4e73df;
+  margin-bottom: 2px;
+}
+
+.range-sub {
+  font-size: 12px;
+  color: #858796;
+}
+
+/* ACTIVE STATE */
+.range-option input[type="radio"]:checked + .range-card .card {
+  border-left-color: #212c5f; 
+  box-shadow: 0 .15rem 1.75rem 0 rgba(61, 146, 220, 0.22) !important;
+}
+
+.range-option input[type="radio"]:checked + .range-card .card-body {
+  background: rgba(61, 146, 220, 0.22);
+}
+
+/* custom date range container */
+#customRangeWrap {
+  display: none;
+}
