@@ -36,6 +36,7 @@ class M_Peminjaman extends CI_Model {
 		$this->db->join('tbl_userpegawai u', 'u.idUser = p.idPeminjam', 'left');
 		$this->db->join('tbl_mobil m', 'm.idMobil = p.idMobil', 'left');
 		$this->db->join('tbl_seksi s', 's.idSeksi = p.idSeksi', 'left');
+		$this->db->order_by('p.createdAt', 'DESC');
 	}
 
 	private function _applyFilters(array $filters)
@@ -161,7 +162,7 @@ class M_Peminjaman extends CI_Model {
 		$this->db->from('tbl_peminjaman p');
 		$this->db->join('tbl_userpegawai u', 'u.idUser = p.idPeminjam', 'left'); // left join untuk berjaga
 		$this->db->join('tbl_mobil m', 'm.idMobil = p.idMobil', 'left');
-		$this->db->order_by('p.tglPeminjaman', 'DESC'); // terbaru dulu
+		$this->db->order_by('p.createdAt', 'DESC'); // terbaru dulu
 		$this->db->where('p.idPeminjam', $id);
 		$this->db->limit(5);
 		 return $this->db->get()->result();  

@@ -608,10 +608,52 @@ class Peminjaman extends CI_Controller {
         $this->load->view('template/main', $data);
     }
     
+    //Rules Pengajuan
+    private function _rulesPengajuan()
+    {
+         $this->form_validation->set_rules(
+            'tglPeminjaman',
+            'tglPeminjaman',
+            'required|trim',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+            ]
+        );
+        $this->form_validation->set_rules(
+            'keperluan',
+            'keperluan',
+            'required|trim',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+            ]
+        );
+        $this->form_validation->set_rules(
+            'tujuan',
+            'tujuan',
+            'required|trim',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+            ]
+        );
+         $this->form_validation->set_rules(
+            'preferensiTransmisi',
+            'preferensiTransmisi',
+            'required|trim',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+            ]
+        );
+    }
+    
     // Menyimpan Pengajuan sebagai draft atau mengajukan Pengajuan Peminjaman
     public function savePengajuan()
     {
-        // Untuk Lampiran
+     $this->_rulesPengajuan();
+
+        if ($this->form_validation->run() === FALSE) {
+            return $this->formSavePengajuan();
+        } else {
+    // Untuk Lampiran
     $config['upload_path'] = './uploads/lampiran/';
     $config['allowed_types'] = 'pdf';
     $config['max_size'] = 2048; // dalam KB, 2048 KB = 2 MB
@@ -626,21 +668,21 @@ class Peminjaman extends CI_Controller {
             $upload_data = $this->upload->data();
             $lampiran = $upload_data['file_name'];
         } else {
-            $this->session->set_flashdata('error', $this->upload->display_errors());
-            redirect('peminjaman/ajukan');
+            $this->session->set_flashdata('error', 'File lebih dari 2MB');
+            redirect('peminjaman/formSavePengajuan');
         }
     }	
     // Save data 
     // ===== Rule lampiran wajib jika visit =====
     $keperluan = $this->input->post('keperluan');
-    $isVisit = ($keperluan === 1);
+    $isVisit = ($keperluan === '1');
     $hasFile = (!empty($_FILES['lampiran']['name']));
 
     if ($isVisit && !$hasFile) {
         $this->session->set_flashdata('error', 'Lampiran wajib untuk keperluan Visit.');
         return redirect('peminjaman/formSavePengajuan');
-    }
-          $data = [
+    }else{
+        $data = [
 			'idPeminjaman' => $this->input->post('idPeminjaman'),
             'idPeminjam' => $this->session->userdata('idUser'),
             'tglPeminjaman' => $this->input->post('tglPeminjaman'),
@@ -664,6 +706,9 @@ class Peminjaman extends CI_Controller {
         $this->M_Peminjaman->insertData_log($dataLog);
         $this->M_Peminjaman->insertData_peminjaman($data);
         redirect('peminjaman/indexPeminjam');
+        }
+    }
+          
     }
 
     // Form Update Pengajuan

@@ -13,7 +13,8 @@
         <div class="mb-3">
             <label for="nama_perlengkapan">Nama Perlengkapan</label>
             <input type="text" name="namaPerlengkapan" id="namaPerlengkapan" 
-                   class="form-control" value="<?= $perlengkapan->namaPerlengkapan ?>" required>
+                   class="form-control" value="<?= $perlengkapan->namaPerlengkapan ?>">
+            <div class="text-danger"><?= form_error('namaPerlengkapan'); ?></div>
         </div>
 	
         <button type="submit" class="btn btn-success">Simpan</button>

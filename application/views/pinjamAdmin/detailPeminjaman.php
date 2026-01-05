@@ -221,12 +221,19 @@
 
       <!-- CTA -->
       <div class="d-flex justify-content-between">
-        <?php if(($pinjam->statusPinjam ===7)&&($this->session->userdata('role')===1)):
+        <?php if ((int)$this->session->userdata('role') === 1): ?>
+          <?php if($pinjam->statusPinjam === 7):
           ?><a href="<?= site_url('peminjaman/penyelesaianPengajuan/'.$pinjam->idPeminjaman); ?>" class="btn btn-success">Selesai</a>
           <?php endif?>
-        <a href="<?= site_url('peminjaman/indexUser'); ?>" class="btn btn-secondary">
+          <a href="<?= site_url('peminjaman/index'); ?>" class="btn btn-secondary">
           <i class="fas fa-arrow-left mr-1"></i> Kembali
         </a>
+        <?php else: ?>
+          <a href="<?= site_url('peminjaman/indexPeminjam'); ?>" class="btn btn-secondary">
+          <i class="fas fa-arrow-left mr-1"></i> Kembali
+        </a>
+        <?php endif; ?>
+
       </div>
 
     </div>

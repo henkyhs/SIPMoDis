@@ -7,6 +7,11 @@
             Anda masih memiliki catatan saat pengembalian, segera hubungi admin.
         </div>
     <?php endif; ?>
+    <?php if ($this->session->flashdata('error')): ?>
+        <div class="alert alert-danger text-center">
+            <?= $this->session->flashdata('error'); ?>
+        </div>
+    <?php endif; ?>
 
     <form action="<?= site_url('peminjaman/savePengajuan'); ?>" method="post" enctype="multipart/form-data">
         <!-- ID Kategori (otomatis dan readonly) -->
@@ -19,7 +24,8 @@
 		<!-- Tanggal Peminjam -->
         <div class="form-group">
 			<label for="tanggal_pinjam">Tanggal Peminjaman</label>
-			<input type="date" name="tglPeminjaman" id="tglPeminjaman" min="<?= date('Y-m-d'); ?>" class="form-control" required>
+			<input type="date" name="tglPeminjaman" id="tglPeminjaman" min="<?= date('Y-m-d'); ?>" class="form-control">
+            <div class="text-danger"><?= form_error('tglPeminjaman'); ?></div>
 		</div>
         
         <!-- <div class="mb-3">
@@ -79,11 +85,12 @@
         <div class="form-group">
     		<label for="exampleFormControlTextarea1">Alamat Tujuan</label>
     		<textarea class="form-control" name="tujuan" id="tujuan" rows="3"></textarea>
+            <div class="text-danger"><?= form_error('tujuan'); ?></div>
   		</div>
 
 		<div class="form-group">
-			<label for="lampiran">Upload Lampiran (PDF) *max 2MB</label>
-			<input type="file" name="lampiran" id="lampiran" class="form-control" accept=".pdf" required>
+			<label for="lampiran">Upload Lampiran (PDF) *max 2MB (Jika anda memilih visit)</label>
+			<input type="file" name="lampiran" id="lampiranCustom" class="form-control" accept=".pdf">
 		</div>
 
 		<button type="submit" class="btn btn-primary btn-block" name="statusPinjam" value="0">Simpan sebagai Draft</button>

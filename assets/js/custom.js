@@ -18,3 +18,29 @@ document.addEventListener('DOMContentLoaded', function(){
   });
   toggleCustomRange();
 });
+
+function toggleLampiran() {
+  const radioLainnya = document.getElementById('keperluan_visit');
+  const lampiranWrap = document.getElementById('lampiranWrapper');
+  const lampiranInput = document.getElementById('lampiran');
+
+  if (!radioLainnya || !lampiranWrap || !lampiranInput) return;
+
+  if (radioLainnya.checked) {
+    lampiranWrap.style.display = 'block';
+    lampiranInput.required = true;
+  } else {
+    lampiranWrap.style.display = 'none';
+    lampiranInput.required = false;
+    lampiranInput.value = ''; // reset file jika pindah pilihan
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('input[name="keperluan"]').forEach(function (radio) {
+    radio.addEventListener('change', toggleLampiran);
+  });
+
+  // set kondisi awal (jika form edit / reload)
+  toggleLampiran();
+});

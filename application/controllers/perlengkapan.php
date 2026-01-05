@@ -13,7 +13,19 @@ class Perlengkapan extends CI_Controller {
 		// Hanya admin (role 1) yang diizinkan
         // cekRole([1]);
     }
-
+    // Rules
+     private function _rules()
+    {
+        $this->form_validation->set_rules(
+            'namaPerlengkapan',
+            'namaPerlengkapan',
+            'required|trim',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+            ]
+        );
+        
+    }   
     // Tampilkan semua perlengkapan
     public function index() {
         $data['activeMenu'] = 'perlengkapan';
@@ -72,9 +84,9 @@ class Perlengkapan extends CI_Controller {
 
     // Proses simpan data baru
     public function save() {
-        $this->form_validation->set_rules($this->M_Perlengkapan->rules());
+        $this->_rules();
         if ($this->form_validation->run() === FALSE) {
-            redirect('perlengkapan/addForm');
+            return $this->addForm();
         } else {
         $data = [
 			'idPerlengkapan' => $this->input->post('idPerlengkapan'),
@@ -83,7 +95,7 @@ class Perlengkapan extends CI_Controller {
 
         $this->M_Perlengkapan->insertData_perlengkapan($data);
         redirect('perlengkapan');
-    }
+        }
     }
 
     // Tampilkan form edit
@@ -97,12 +109,17 @@ class Perlengkapan extends CI_Controller {
 
     // Proses update data
     public function update($id) {
+        $this->_rules();
+        if ($this->form_validation->run() === FALSE) {
+            return $this->editForm($id);
+        } else {
         $data = [
             'namaPerlengkapan' => $this->input->post('namaPerlengkapan'),
         ];
 
         $this->M_Perlengkapan->update_perlengkapan($id, $data);
         redirect('perlengkapan');
+        }
     }
 
     // Proses hapus data
