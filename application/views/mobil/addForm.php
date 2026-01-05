@@ -14,14 +14,14 @@
             <label for="namaMobil">Tipe Mobil</label>
             <input type="text" name="namaMobil" id="namaMobil" 
                    class="form-control">
-           <?= form_error('namaMobil', '<div class="invalid-feedback">', '</div>'); ?>       
+           <div class="text-danger"><?= form_error('namaMobil'); ?></div>       
         </div>
 
         <div class="mb-3">
             <label for="merkMobil">Merk Mobil</label>
             <input type="text" name="merkMobil" id="merkMobil" 
                    class="form-control">
-           <?= form_error('merkMobil', '<div class="invalid-feedback">', '</div>'); ?>       
+           <div class="text-danger"><?= form_error('merkMobil'); ?></div>       
         </div>
 
 		<!-- Nomor Polisi -->
@@ -39,9 +39,9 @@
                 maxlength="2"
                 class="form-control text-uppercase text-center <?php echo form_error('plat1') ? 'is-invalid' : ''; ?>"
                 placeholder=""
-                value="<?php echo set_value('plat1', isset($plat1) ? $plat1 : ''); ?>"
-                required
+                value="<?php echo set_value('plat1', isset($plat1) ? $plat1 : ''); ?>"   
             >
+            <div class="text-danger"><?= form_error('plat1'); ?></div>
         </div>
         <!-- Spasi visual -->
         <div class="col-auto px-1">
@@ -55,9 +55,9 @@
                 maxlength="4"
                 class="form-control text-center <?php echo form_error('plat2') ? 'is-invalid' : ''; ?>"
                 placeholder=""
-                value="<?php echo set_value('plat2', isset($plat2) ? $plat2 : ''); ?>"
-                required
+                value="<?php echo set_value('plat2', isset($plat2) ? $plat2 : ''); ?>"  
             >
+            <div class="text-danger"><?= form_error('plat2'); ?></div>
         </div>
         <!-- Spasi visual -->
         <div class="col-auto px-1">
@@ -72,8 +72,8 @@
                 class="form-control text-uppercase text-center <?php echo form_error('plat3') ? 'is-invalid' : ''; ?>"
                 placeholder=""
                 value="<?php echo set_value('plat3', isset($plat3) ? $plat3 : ''); ?>"
-                required
             >
+            <div class="text-danger"><?= form_error('plat3'); ?></div>
         </div>
     </div>
         </div>
@@ -89,15 +89,17 @@
          <div class="mb-3">
             <label for="noBPKB">No BPKB</label>
             <input type="text" name="noBPKB" id="noBPKB" 
-                   class="form-control" required>
+                   class="form-control">
+            <div class="text-danger"><?= form_error('noBPKB'); ?></div>
         </div>
         <div class="mb-3">
             <label for="atasNama">Atas Nama</label>
             <input type="text" name="atasNama" id="atasNama" 
-                   class="form-control" required>
+                   class="form-control">
+            <div class="text-danger"><?= form_error('atasNama'); ?></div>
         </div>
 		<div class="form-group">
-    		<label for="exampleFormControlTextarea1">Keterangan</label>
+    		<label for="exampleFormControlTextarea1">Keterangan (Opsional)</label>
     		<textarea class="form-control" name="ket" id="keterangan" rows="3"></textarea>
   		</div>
 	

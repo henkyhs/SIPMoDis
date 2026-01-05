@@ -13,21 +13,119 @@ class Mobil extends CI_Controller {
 		// Hanya admin (role 1) yang diizinkan
         // cekRole([1]);
     }
+    // Rules
+    private function _rules()
+    {
+       
+        $this->form_validation->set_rules(
+            'namaMobil',
+            'namaMobil',
+            'required|trim',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+            ]
+        );
+        $this->form_validation->set_rules(
+            'merkMobil',
+            'merkMobil',
+            'required|trim',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+            ]
+        );
+        $this->form_validation->set_rules(
+            'plat1',
+            'plat1',
+            'required|trim',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+            ]
+        );
+        $this->form_validation->set_rules(
+            'plat2',
+            'plat2',
+            'required|trim|numeric',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+                'numeric' => 'Plat harus diisi angka'
+            ]
+        );
+        $this->form_validation->set_rules(
+            'plat3',
+            'plat3',
+            'required|trim',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+            ]
+        );
+        $this->form_validation->set_rules(
+            'noBPKB',
+            'noBPKB',
+            'required|trim',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+            ]
+        );
+        $this->form_validation->set_rules(
+            'atasNama',
+            'atasNama',
+            'required|trim',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+            ]
+        );
+
+        
+    }   
 
     // Tampilkan semua mobil
     public function index() {
         $data['activeMenu'] = 'mobil';
         $data['title'] = 'Data Mobil';
-        // $data['dataMobil'] = $this->M_Mobil->getAllData_mobil();
+        // Untuk FIlter
         $filters = [
         'platNomor'   => $this->input->get('platNomor', TRUE),
         'namaMobil'        => $this->input->get('namaMobil', TRUE),
         'transmisi'   => $this->input->get('transmisi', TRUE), // 1/2
         'kondisiMobil'=> $this->input->get('kondisiMobil', TRUE), // 1 tersedia/2 dipinjam/dll
-    ];
+         ];
+        //  Paginations
+        $perPage = 5; //Untuk limit berapa data yang ditampilkan
+        $offset  = (int) $this->input->get('per_page'); // CI default query_string_segment = per_page
+
+        $totalRows = $this->M_Mobil->countFiltered($filters);
+
+        $config['base_url']            = site_url('mobil/index');
+        $config['total_rows']          = $totalRows;
+        $config['per_page']            = $perPage;
+
+        // pakai query string agar filter tetap kebawa
+        $config['page_query_string']   = TRUE;
+        $config['reuse_query_string']  = TRUE; // penting: platNomor=... ikut ke link pagination
+
+        // (opsional) styling bootstrap 4 / SB Admin 2
+        $config['full_tag_open']   = '<nav><ul class="pagination justify-content-end">';
+        $config['full_tag_close']  = '</ul></nav>';
+        $config['cur_tag_open']    = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']   = '</span></li>';
+        $config['num_tag_open']    = '<li class="page-item">';
+        $config['num_tag_close']   = '</li>';
+        $config['first_tag_open']  = '<li class="page-item">';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open']   = '<li class="page-item">';
+        $config['last_tag_close']  = '</li>';
+        $config['next_tag_open']   = '<li class="page-item">';
+        $config['next_tag_close']  = '</li>';
+        $config['prev_tag_open']   = '<li class="page-item">';
+        $config['prev_tag_close']  = '</li>';
+        $config['attributes']      = ['class' => 'page-link'];
+
+        $this->pagination->initialize($config);
+
         $data['filters'] = $filters;
-        $data['mobils']  = $this->M_Mobil->getFiltered($filters);
-        $data['total']   = $this->M_Mobil->countFiltered($filters);
+        $data['mobils']  = $this->M_Mobil->getFiltered($filters,$perPage, $offset);
+        $data['total']     = $totalRows;
+        $data['pagination']= $this->pagination->create_links();
         $data['contentView'] = 'mobil/index';
         $this->load->view('template/main', $data);
     }
@@ -43,10 +141,10 @@ class Mobil extends CI_Controller {
 
     // Proses simpan data baru
     public function save() {
-        // $this->form_validation->set_rules($this->M_Mobil->rules());
-        // if ($this->form_validation->run() === FALSE) {
-        //     redirect('mobil/addForm');
-        // } else {
+        $this->_rules();
+        if ($this->form_validation->run() === FALSE) {
+            return $this->addForm();
+        } else {
         $plat1 = strtoupper($this->input->post('plat1'));
         $plat2 = $this->input->post('plat2');
         $plat3 = strtoupper($this->input->post('plat3'));
@@ -66,7 +164,7 @@ class Mobil extends CI_Controller {
 
         $this->M_Mobil->insertData_mobil($data);
         redirect('mobil');
-    // }
+        }
     }
 
     private function _splitPlat($platNomor)
@@ -106,6 +204,10 @@ class Mobil extends CI_Controller {
 
     // Proses update data
     public function update($id) {
+        $this->_rules();
+        if ($this->form_validation->run() === FALSE) {
+            return $this->editForm($id);
+        } else {
         $plat1 = strtoupper($this->input->post('plat1'));
         $plat2 = $this->input->post('plat2');
         $plat3 = strtoupper($this->input->post('plat3'));
@@ -124,6 +226,7 @@ class Mobil extends CI_Controller {
 
         $this->M_Mobil->update_mobil($id, $data);
         redirect('mobil');
+        }
     }
 
     public function detailMobil($id)

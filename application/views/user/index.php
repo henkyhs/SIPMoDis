@@ -55,8 +55,8 @@
                 <tr>
                     <td><?= $no++ ?></td>
 					<td><?= $u->nip ?></td>
-                    <td><p class="text-xs font-weight-bold mb-0"><?= $u->namaPegawai ?></p>
-                        <p class="text-xs text-secondary mb-0"><?= $u->username ?></p></td>
+                    <td><p class="text-m font-weight-bold mb-0"><?= $u->namaPegawai ?></p>
+                        <p class="text-xs text-secondary mb-0"><?= $u->noHp ?></p></td>
 					<td><?= $u->namaSeksi ?></td>
                     <td><?= role_user($u->role)?></td>
                     <td>
@@ -69,5 +69,15 @@
         </tbody>
     </table>
     </form>
+
+    <div class="d-flex justify-content-between align-items-center">
+  <div class="text-muted small">
+    Total: <?= (int)$total; ?> data
+  </div>
+  <div>
+    <?= $pagination; ?>
+  </div>
+</div>
+
     <!-- Tabel dengan id agar dikenali oleh DataTables -->
 </div>

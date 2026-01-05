@@ -13,7 +13,8 @@
         <div class="mb-3">
             <label for="nama_mobil">Nama Seksi</label>
             <input type="text" name="namaSeksi" id="namaSeksi" 
-                   class="form-control" value="<?= $seksi->namaSeksi ?>" required>
+                   class="form-control" value="<?= $seksi->namaSeksi ?>">
+             <div class="text-danger"><?= form_error('namaSeksi'); ?></div>
         </div>
 		<!-- Keterangan -->
 		<div class="form-group">

@@ -14,7 +14,55 @@ class User extends CI_Controller {
 		// Hanya admin (role 1) yang diizinkan
         // cekRole([1]);
     }
-
+    // Rules
+    private function _rules()
+    {
+        $this->form_validation->set_rules(
+            'nip',
+            'NIP',
+            'required|trim|numeric|exact_length[9]|is_unique[tbl_userpegawai.nip]',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+                'numeric' => 'NIP harus berupa angka',
+                'exact_length' => 'NIP harus 9 digit',
+                'is_unique' => 'NIP telah terdaftar'
+            ]
+        );
+        $this->form_validation->set_rules(
+            'namaPegawai',
+            'namaPegawai',
+            'required|trim',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+            ]
+        );
+        $this->form_validation->set_rules(
+            'idSeksi',
+            'idSeksi',
+            'required',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+            ]
+        );
+        $this->form_validation->set_rules(
+            'role',
+            'role',
+            'required',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+            ]
+        );
+        $this->form_validation->set_rules(
+            'noHp',
+            'noHp',
+            'required|trim|numeric',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+                'numeric' => 'No HP harus berupa angka'
+            ]
+        );
+        
+    }   
     // Tampilkan semua mobil
     public function index() {
         $filters = [
@@ -23,10 +71,43 @@ class User extends CI_Controller {
         'namaSeksi'   => $this->input->get('namaSeksi', TRUE), // 1/2
         'role'=> $this->input->get('role', TRUE), // 1 tersedia/2 dipinjam/dll
     ];
+        //  Paginations
+        $perPage = 5; //Untuk limit berapa data yang ditampilkan
+        $offset  = (int) $this->input->get('per_page'); // CI default query_string_segment = per_page
+
+        $totalRows = $this->M_User->countFiltered($filters);
+
+        $config['base_url']            = site_url('user/index');
+        $config['total_rows']          = $totalRows;
+        $config['per_page']            = $perPage;
+
+        // pakai query string agar filter tetap kebawa
+        $config['page_query_string']   = TRUE;
+        $config['reuse_query_string']  = TRUE; // penting: platNomor=... ikut ke link pagination
+
+        // (opsional) styling bootstrap 4 / SB Admin 2
+        $config['full_tag_open']   = '<nav><ul class="pagination justify-content-end">';
+        $config['full_tag_close']  = '</ul></nav>';
+        $config['cur_tag_open']    = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']   = '</span></li>';
+        $config['num_tag_open']    = '<li class="page-item">';
+        $config['num_tag_close']   = '</li>';
+        $config['first_tag_open']  = '<li class="page-item">';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open']   = '<li class="page-item">';
+        $config['last_tag_close']  = '</li>';
+        $config['next_tag_open']   = '<li class="page-item">';
+        $config['next_tag_close']  = '</li>';
+        $config['prev_tag_open']   = '<li class="page-item">';
+        $config['prev_tag_close']  = '</li>';
+        $config['attributes']      = ['class' => 'page-link'];
+
+        $this->pagination->initialize($config);
         $data['filters'] = $filters;
-        $data['dataUser']  = $this->M_User->getFiltered($filters);
+        $data['dataUser']  = $this->M_User->getFiltered($filters,$perPage,$offset);
         $data['title'] =  'Data User';
-        $data['total']   = $this->M_User->countFiltered($filters);
+        $data['total']     = $totalRows;
+        $data['pagination']= $this->pagination->create_links();
         $data['activeMenu'] = 'user';
         // $data['dataUser'] = $this->M_User->getAllData_user();
 		// $data['detailUser'] = $this->M_User->getWhere_user($id);
@@ -48,18 +129,24 @@ class User extends CI_Controller {
 
     // Proses simpan data baru
     public function save() {
-        $data = [
+        $this->_rules();
+
+        if ($this->form_validation->run() === FALSE) {
+            return $this->addForm();
+        } else {
+             $data = [
 			'idUser' => $this->input->post('idUser'),
 			'namaPegawai' => $this->input->post('namaPegawai'),
 			'nip' => $this->input->post('nip'),
-			'username'    => $this->input->post('username'),
             'password'    => password_hash('Kantorkita123', PASSWORD_DEFAULT),
+            'noHp' => $this->input->post('noHp'),
 			'idSeksi' => $this->input->post('idSeksi'),
             'role'        => $this->input->post('role')
         ];
-
         $this->M_User->insertData_User($data);
-        redirect('user');
+        redirect('user');        
+        }
+       
     }
 
     public function formGantiPassword($id)

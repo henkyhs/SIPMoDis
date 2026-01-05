@@ -31,8 +31,8 @@
             </select>
                 </th> -->
             <th style="width:160px;">
-            <button type="submit" class="btn btn-sm btn-primary ">Filter</button>
-            <a href="<?= site_url('peminjaman/indexPengambilanKunci'); ?>" class="btn btn-sm btn-secondary ">Reset</a>
+            <button type="submit" class="btn btn-sm btn-primary btn-block">Filter</button>
+            <a href="<?= site_url('peminjaman/indexPengambilanKunci'); ?>" class="btn btn-sm btn-secondary btn-block ">Reset</a>
           </th>
         </tr>
     <tr>
@@ -96,6 +96,13 @@
 </table>
 
     </form>
-    <!-- Tabel dengan id agar dikenali oleh DataTables -->
+    <div class="d-flex justify-content-between align-items-center">
+  <div class="text-muted small">
+    Total: <?= (int)$total; ?> data
+  </div>
+  <div>
+    <?= $pagination; ?>
+  </div>
+</div>
 
 </div>

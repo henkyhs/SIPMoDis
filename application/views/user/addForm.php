@@ -13,21 +13,24 @@
         <div class="mb-3">
             <label for="nama_pegawai">Nama Pegawai</label>
             <input type="text" name="namaPegawai" id="namaSeksi" 
-                   class="form-control" required>
-        </div>
-		<!-- Username -->
-        <div class="mb-3">
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" 
-                   class="form-control" required>
+                   class="form-control" value="<?= set_value('namaPegawai'); ?>">
+            <div class="text-danger"><?= form_error('namaPegawai'); ?></div>
         </div>
 		<!-- NIP -->
         <div class="mb-3">
             <label for="nip">NIP</label>
             <input type="text" name="nip" id="nip" 
-                   class="form-control" required>
+                   class="form-control" value="<?= set_value('nip'); ?>">
+            <div class="text-danger"><?= form_error('nip'); ?></div>
         </div>
-		
+
+        <!-- No HP -->
+        <div class="mb-3">
+            <label for="nip">No Handphone Aktif</label>
+            <input type="text" name="noHp" id="noHp" 
+                   class="form-control" value="<?= set_value('noHp'); ?>">
+            <div class="text-danger"><?= form_error('noHp'); ?></div>
+        </div>
 		<!-- Seksi -->
 		<div class="mb-3">
 			<label for="idSeksi">Seksi</label>

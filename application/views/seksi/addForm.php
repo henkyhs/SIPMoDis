@@ -13,11 +13,12 @@
         <div class="mb-3">
             <label for="nama_seksi">Nama Seksi</label>
             <input type="text" name="namaSeksi" id="namaSeksi" 
-                   class="form-control" required>
+                   class="form-control">
+             <div class="text-danger"><?= form_error('namaSeksi'); ?></div>
         </div>
 
 		<div class="form-group">
-    		<label for="exampleFormControlTextarea1">Keterangan</label>
+    		<label for="exampleFormControlTextarea1">Keterangan (Opsional)</label>
     		<textarea class="form-control" name="ket" id="keterangan" rows="3"></textarea>
   		</div>
 	

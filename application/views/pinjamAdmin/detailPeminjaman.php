@@ -174,8 +174,18 @@
         </div>
         <div class="card-body">
           <div class="mb-2">
+            <div class="text-muted small">Bensin yang Digunakan</div>
+            <div><?= bensin_peminjam($pinjam->bensinPemakaian); ?></div>
+          </div>
+          <hr>
+          <div class="mb-2">
             <div class="text-muted small">Catatan Peminjam</div>
             <div><?= nl2br(htmlspecialchars($pinjam->catatanPeminjam ?? '-')) ?></div>
+          </div>
+          <hr>
+          <div class="mb-2">
+            <div class="text-muted small">Bensin Setelah Diperiksa</div>
+            <div><?= bensin_inspeksi($pinjam->bensinInspeksi); ?></div>
           </div>
           <hr>
           <div>

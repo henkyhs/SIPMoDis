@@ -97,35 +97,35 @@
             <small class="text-muted d-block mb-1">Bagaimana Kondisi Bensin Terakhir</small>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio"
-                       name="bensinPemakaian" id="bensinPemakaian_1" value="1"
-                       <?= set_radio('bensinPemakaian','1'); ?>>
-                <label class="form-check-label" for="bensinPemakaian_1">E (Habis)</label>
+                       name="bensinInspeksi" id="bensinInspeksi_1" value="1"
+                       <?= set_radio('bensinInspeksi','1'); ?>>
+                <label class="form-check-label" for="bensinInspeksi_1">E (Habis)</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio"
-                       name="bensinPemakaian" id="bensinPemakaian_2" value="2"
-                       <?= set_radio('bensinPemakaian','2'); ?>>
-                <label class="form-check-label" for="bensinPemakaian_2">1/4</label>
+                       name="bensinInspeksi" id="bensinInspeksi_2" value="2"
+                       <?= set_radio('bensinInspeksi','2'); ?>>
+                <label class="form-check-label" for="bensinInspeksi_2">1/4</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio"
-                       name="bensinPemakaian" id="bensinPemakaian_3" value="3"
-                       <?= set_radio('bensinPemakaian','3'); ?>>
-                <label class="form-check-label" for="bensinPemakaian_3">1/2</label>
+                       name="bensinInspeksi" id="bensinInspeksi_3" value="3"
+                       <?= set_radio('bensinInspeksi','3'); ?>>
+                <label class="form-check-label" for="bensinInspeksi_3">1/2</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio"
-                       name="bensinPemakaian" id="bensinPemakaian_4" value="4"
-                       <?= set_radio('bensinPemakaian','4'); ?>>
-                <label class="form-check-label" for="bensinPemakaian_4">3/4</label>
+                       name="bensinInspeksi" id="bensinInspeksi_4" value="4"
+                       <?= set_radio('bensinInspeksi','4'); ?>>
+                <label class="form-check-label" for="bensinInspeksi_4">3/4</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio"
-                       name="bensinPemakaian" id="bensinPemakaian_5" value="5"
-                       <?= set_radio('bensinPemakaian','5'); ?>>
-                <label class="form-check-label" for="bensinPemakaian_5">F (Penuh)</label>
+                       name="bensinInspeksi" id="bensinInspeksi_5" value="5"
+                       <?= set_radio('bensinInspeksi','5'); ?>>
+                <label class="form-check-label" for="bensinInspeksi_5">F (Penuh)</label>
             </div>
-            <div class="text-danger small"><?= form_error('bensinPemakaian'); ?></div>
+            <div class="text-danger small"><?= form_error('bensinInspeksi'); ?></div>
         </div>
 
      <div class="form-group">

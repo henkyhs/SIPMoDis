@@ -13,7 +13,18 @@ class Seksi extends CI_Controller {
 		// Hanya admin (role 1) yang diizinkan
         // cekRole([1]);
     }
-
+     private function _rules()
+    {
+        $this->form_validation->set_rules(
+            'namaSeksi',
+            'namaSeksi',
+            'required|trim',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+            ]
+        );
+        
+    }   
     // Tampilkan semua mobil
     public function index() {
         $data['activeMenu'] = 'seksi';
@@ -21,9 +32,44 @@ class Seksi extends CI_Controller {
         $filters = [
         'namaSeksi'        => $this->input->get('namaSeksi', TRUE)
     ];
+    //  Paginations
+        $perPage = 5;
+        $offset  = (int) $this->input->get('per_page'); // CI default query_string_segment = per_page
+
+        $totalRows = $this->M_Seksi->countFiltered($filters);
+
+        $config['base_url']            = site_url('seksi/index');
+        $config['total_rows']          = $totalRows;
+        $config['per_page']            = $perPage;
+
+        // pakai query string agar filter tetap kebawa
+        $config['page_query_string']   = TRUE;
+        $config['reuse_query_string']  = TRUE; 
+
+        // (opsional) styling bootstrap 4 / SB Admin 2
+        $config['full_tag_open']   = '<nav><ul class="pagination justify-content-end">';
+        $config['full_tag_close']  = '</ul></nav>';
+        $config['cur_tag_open']    = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']   = '</span></li>';
+        $config['num_tag_open']    = '<li class="page-item">';
+        $config['num_tag_close']   = '</li>';
+        $config['first_tag_open']  = '<li class="page-item">';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open']   = '<li class="page-item">';
+        $config['last_tag_close']  = '</li>';
+        $config['next_tag_open']   = '<li class="page-item">';
+        $config['next_tag_close']  = '</li>';
+        $config['prev_tag_open']   = '<li class="page-item">';
+        $config['prev_tag_close']  = '</li>';
+        $config['attributes']      = ['class' => 'page-link'];
+
+        $this->pagination->initialize($config);
+
+
         $data['filters'] = $filters;
-        $data['dataSeksi']  = $this->M_Seksi->getFiltered($filters);
-        $data['total']   = $this->M_Seksi->countFiltered($filters);
+        $data['dataSeksi']  = $this->M_Seksi->getFiltered($filters,$perPage, $offset);
+        $data['total']     = $totalRows;
+        $data['pagination']= $this->pagination->create_links();
         $data['contentView'] = 'seksi/index';
         $this->load->view('template/main', $data);
     }
@@ -39,6 +85,11 @@ class Seksi extends CI_Controller {
 
     // Proses simpan data baru
     public function save() {
+        $this->_rules();
+
+        if ($this->form_validation->run() === FALSE) {
+            return $this->addForm();
+        } else {
         $data = [
 			'idSeksi' => $this->input->post('idSeksi'),
             'namaSeksi' => $this->input->post('namaSeksi'),
@@ -47,6 +98,7 @@ class Seksi extends CI_Controller {
 
         $this->M_Seksi->insertData_seksi($data);
         redirect('seksi');
+        }
     }
 
     // Tampilkan form edit
@@ -60,6 +112,11 @@ class Seksi extends CI_Controller {
 
     // Proses update data
     public function update($id) {
+        $this->_rules();
+
+        if ($this->form_validation->run() === FALSE) {
+            return $this->editForm($id);
+        } else {
         $data = [
             'namaSeksi' => $this->input->post('namaSeksi'),
             'ket' => $this->input->post('ket')
@@ -67,6 +124,7 @@ class Seksi extends CI_Controller {
 
         $this->M_Seksi->update_seksi($id, $data);
         redirect('seksi');
+        }
     }
 
     // Proses hapus data

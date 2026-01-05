@@ -29,14 +29,17 @@ class M_Peminjaman extends CI_Model {
 		return $this->db->get()->result();
 	}
 	// Filtered Untuk Riwayat Admin Full
+	private function _baseQuery()
+	{
+		$this->db->select('p.*,u.namaPegawai,s.namaSeksi,m.*, COALESCE(m.platNomor, "Belum diproses") as platNomor', false);
+		$this->db->from('tbl_peminjaman p');
+		$this->db->join('tbl_userpegawai u', 'u.idUser = p.idPeminjam', 'left');
+		$this->db->join('tbl_mobil m', 'm.idMobil = p.idMobil', 'left');
+		$this->db->join('tbl_seksi s', 's.idSeksi = p.idSeksi', 'left');
+	}
+
 	private function _applyFilters(array $filters)
 	{
-		$this->db->select('tbl_peminjaman.*,tbl_userpegawai.namaPegawai,tbl_seksi.namaSeksi,tbl_mobil.*, COALESCE(tbl_mobil.platNomor, "Belum diproses") as platNomor', false);
-		$this->db->from('tbl_peminjaman');
-		$this->db->join('tbl_userpegawai', 'tbl_userpegawai.idUser = tbl_peminjaman.idPeminjam');
-		$this->db->join('tbl_mobil', 'tbl_mobil.idMobil = tbl_peminjaman.idMobil','left');
-		$this->db->join('tbl_seksi','tbl_seksi.idSeksi = tbl_peminjaman.idSeksi','left');
-
 		// LIKE untuk text
 		if (!empty($filters['tglPeminjaman'])) {
 			$this->db->like('tglPeminjaman', $filters['tglPeminjaman']);
@@ -57,44 +60,74 @@ class M_Peminjaman extends CI_Model {
 		}
 	}
 
-	public function getFilteredAll(array $filters)
+	public function getFilteredAll(array $filters,$limit,$offset)
 	{
-		$this->db->where('tbl_peminjaman.statusPinjam !=',0);
+		$this->_baseQuery();
+		$this->db->where('P.statusPinjam !=',0);
 		$this->_applyFilters($filters);
 
 		// $this->db->order_by('tbl_userpagawai.createdAt', 'ASC');
-		// $this->db->limit($limit, $offset);
+		$this->db->limit($limit, $offset);
 
 		return $this->db->get()->result();
 	}
 
-	public function getFilteredByUser(array $filters, $id)
+	public function getFilteredByUser(array $filters, $id,$limit,$offset)
 	{
 		// $this->db->where('tbl_peminjaman.statusPinjam !=',0);
-		$this->db->where('tbl_peminjaman.idPeminjam', $id);
+		$this->_baseQuery();
+		$this->db->where('P.idPeminjam', $id);
 		$this->_applyFilters($filters);
+		$this->db->limit($limit, $offset);
 
 		// $this->db->order_by('tbl_userpagawai.createdAt', 'ASC');
-		// $this->db->limit($limit, $offset);
 
 		return $this->db->get()->result();
 	}
 
-	public function getFilteredByStatus(array $filters, $status)
+	public function getFilteredByStatus(array $filters, $status,$limit,$offset)
 	{
-		$this->db->where('tbl_peminjaman.statusPinjam !=',0);
-		$this->db->where('tbl_peminjaman.statusPinjam', $status);
+		$this->_baseQuery();
+		$this->db->where('P.statusPinjam !=',0);
+		$this->db->where('P.statusPinjam', $status);
 		$this->_applyFilters($filters);
 
 		// $this->db->order_by('tbl_userpagawai.createdAt', 'ASC');
-		// $this->db->limit($limit, $offset);
+		$this->db->limit($limit, $offset);
 
 		return $this->db->get()->result();
 	}
-	public function countFiltered(array $filters): int
+	public function countFilteredAll(array $filters): int
 	{
+		$this->_baseQuery();
 		$this->_applyFilters($filters);
 		return (int)$this->db->count_all_results();
+	}
+
+	public function countFilteredByStatus(array $filters, int $status): int
+	{
+		$this->_baseQuery();
+
+		$this->db->where('p.statusPinjam !=', 0);
+		$this->db->where('p.statusPinjam', $status);
+		$this->_applyFilters($filters);
+
+		// override select supaya tidak ikut select panjang
+		$this->db->select('COUNT(*) AS cnt', false);
+		return (int) $this->db->get()->row()->cnt;
+	}
+
+	public function countFilteredByUser(array $filters, $id): int
+	{
+		$this->_baseQuery();
+
+		$this->db->where('p.statusPinjam !=', 0);
+		$this->db->where('p.idPeminjam', $id);
+		$this->_applyFilters($filters);
+
+		// override select supaya tidak ikut select panjang
+		$this->db->select('COUNT(*) AS cnt', false);
+		return (int) $this->db->get()->row()->cnt;
 	}
 
 	public function getRiwayatByUser($id)
@@ -325,9 +358,21 @@ class M_Peminjaman extends CI_Model {
 	public function getByTgl($tglMulai,$tglSelesai)
 	{
 		return $this->db
-        ->select('p.idPeminjaman, u.namaPegawai, p.tglPeminjaman, p.statusPinjam')
+        ->select(
+			'p.*, 
+			peminjam.namaPegawai AS namaPeminjam,  
+			m.namaMobil, 
+			m.platNomor,
+			verifikator.namaPegawai AS namaVerifikator,
+            penerima.namaPegawai AS namaPenerima,
+			pemberi.namaPegawai AS namaPemberi
+			')
         ->from('tbl_peminjaman p')
-        ->join('tbl_userpegawai u', 'u.idUser = p.idPeminjam')
+        ->join('tbl_userpegawai peminjam', 'peminjam.idUser = p.idPeminjam','left')
+		->join('tbl_userpegawai verifikator', 'verifikator.idUser = p.idVerifikator','left')
+		->join('tbl_userpegawai penerima', 'penerima.idUser = p.idPenerima','left')
+		->join('tbl_userpegawai pemberi', 'pemberi.idUser = p.idPemberi','left')
+		->join('tbl_mobil m','m.idMobil = p.idMobil')
         ->where('DATE(p.tglPeminjaman) >=', $tglMulai)
         ->where('DATE(p.tglPeminjaman) <=', $tglSelesai)
         ->order_by('p.tglPeminjaman', 'DESC')

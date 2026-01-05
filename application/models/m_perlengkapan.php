@@ -33,12 +33,12 @@ class M_Perlengkapan extends CI_Model {
 		}
 	}
 
-	public function getFiltered(array $filters)
+	public function getFiltered(array $filters,$limit,$offset)
 	{
 		$this->_applyFilters($filters);
 
 		$this->db->order_by('createdAt', 'ASC');
-		// $this->db->limit($limit, $offset);
+		$this->db->limit($limit, $offset);
 
 		return $this->db->get()->result();
 	}

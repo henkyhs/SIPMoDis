@@ -13,13 +13,15 @@
         <div class="mb-3">
             <label for="nama_mobil">Tipe Mobil</label>
             <input type="text" name="namaMobil" id="namaMobil" 
-                   class="form-control" value="<?= $mobil->namaMobil ?>" required>
+                   class="form-control" value="<?= $mobil->namaMobil ?>">
+            <div class="text-danger"><?= form_error('namaMobil'); ?></div>
         </div>
 
          <div class="mb-3">
             <label for="noBPKB">Merk Mobil</label>
             <input type="text" name="merkMobil" id="merkMobil" 
-                   class="form-control" value="<?= $mobil->merkMobil ?>" required>
+                   class="form-control" value="<?= $mobil->merkMobil ?>">
+            <div class="text-danger"><?= form_error('merkMobil'); ?></div>
         </div>
 
 		<!-- Nomor Polisi -->
@@ -38,8 +40,8 @@
                 class="form-control text-uppercase text-center <?php echo form_error('plat1') ? 'is-invalid' : ''; ?>"
                 placeholder=""
                 value="<?= set_value('plat1', $plat1); ?>"
-                required
             >
+            <div class="text-danger"><?= form_error('plat1'); ?></div>
         </div>
         <!-- Spasi visual -->
         <div class="col-auto px-1">
@@ -54,8 +56,8 @@
                 class="form-control text-center <?php echo form_error('plat2') ? 'is-invalid' : ''; ?>"
                 placeholder=""
                 value="<?= set_value('plat2', $plat2); ?>"
-                required
             >
+            <div class="text-danger"><?= form_error('plat2'); ?></div>
         </div>
         <!-- Spasi visual -->
         <div class="col-auto px-1">
@@ -70,8 +72,8 @@
                 class="form-control text-uppercase text-center <?php echo form_error('plat3') ? 'is-invalid' : ''; ?>"
                 placeholder=""
                 value="<?= set_value('plat3', $plat3); ?>"
-                required
             >
+            <div class="text-danger"><?= form_error('plat2'); ?></div>
         </div>
     </div>
         </div>
@@ -96,16 +98,18 @@
         <div class="mb-3">
             <label for="noBPKB">No BPKB</label>
             <input type="text" name="noBPKB" id="noBPKB" 
-                   class="form-control" value="<?= $mobil->noBPKB ?>" required>
+                   class="form-control" value="<?= $mobil->noBPKB ?>">
+            <div class="text-danger"><?= form_error('noBPKB'); ?></div>
         </div>
         <div class="mb-3">
             <label for="atasNama">Atas Nama</label>
             <input type="text" name="atasNama" id="atasNama" 
-                   class="form-control" value="<?= $mobil->noBPKB ?>" required>
+                   class="form-control" value="<?= $mobil->atasNama ?>">
+            <div class="text-danger"><?= form_error('atasNama'); ?></div>
         </div>
 		<!-- Keterangan -->
 		<div class="form-group">
-    		<label for="exampleFormControlTextarea1">Keterangan</label>
+    		<label for="exampleFormControlTextarea1">Keterangan (Opsional)</label>
     		<textarea class="form-control"  value="<?= $mobil->ket ?>"name="ket" id="keterangan" rows="3"></textarea>
   		</div>
 	

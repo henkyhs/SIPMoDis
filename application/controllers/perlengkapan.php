@@ -21,9 +21,42 @@ class Perlengkapan extends CI_Controller {
         $filters = [
         'namaPerlengkapan'        => $this->input->get('namaPerlengkapan', TRUE),
     ];
+        //  Paginations
+        $perPage = 5; //Untuk limit berapa data yang ditampilkan
+        $offset  = (int) $this->input->get('per_page'); // CI default query_string_segment = per_page
+
+        $totalRows = $this->M_Perlengkapan->countFiltered($filters);
+
+        $config['base_url']            = site_url('perlengkapan/index');
+        $config['total_rows']          = $totalRows;
+        $config['per_page']            = $perPage;
+
+        // pakai query string agar filter tetap kebawa
+        $config['page_query_string']   = TRUE;
+        $config['reuse_query_string']  = TRUE; // 
+
+        // (opsional) styling bootstrap 4 / SB Admin 2
+        $config['full_tag_open']   = '<nav><ul class="pagination justify-content-end">';
+        $config['full_tag_close']  = '</ul></nav>';
+        $config['cur_tag_open']    = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']   = '</span></li>';
+        $config['num_tag_open']    = '<li class="page-item">';
+        $config['num_tag_close']   = '</li>';
+        $config['first_tag_open']  = '<li class="page-item">';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open']   = '<li class="page-item">';
+        $config['last_tag_close']  = '</li>';
+        $config['next_tag_open']   = '<li class="page-item">';
+        $config['next_tag_close']  = '</li>';
+        $config['prev_tag_open']   = '<li class="page-item">';
+        $config['prev_tag_close']  = '</li>';
+        $config['attributes']      = ['class' => 'page-link'];
+
+        $this->pagination->initialize($config);
         $data['filters'] = $filters;
-        $data['dataPerlengkapan']  = $this->M_Perlengkapan->getFiltered($filters);
-        $data['total']   = $this->M_Perlengkapan->countFiltered($filters);
+        $data['dataPerlengkapan']  = $this->M_Perlengkapan->getFiltered($filters,$perPage,$offset);
+        $data['total']     = $totalRows;
+        $data['pagination']= $this->pagination->create_links();
         $data['contentView'] = 'perlengkapan/index';
         $this->load->view('template/main', $data);
     }

@@ -12,14 +12,8 @@
       <!-- Nama Pegawai -->
         <div class="mb-3">
             <label for="nama_pegawai">Nama Pegawai</label>
-            <input type="text" name="namaPegawai" id="namaSeksi" 
+            <input type="text" name="namaPegawai" id="namaPegawai" 
                    class="form-control" required>
-        </div>
-		<!-- Username -->
-        <div class="mb-3">
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" 
-                   class="form-control" readonly>
         </div>
 		<!-- NIP -->
         <div class="mb-3">

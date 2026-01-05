@@ -105,23 +105,23 @@ function status_inspeksi($status_id){
 
 function bensin_peminjam($status_id){
     $status = [
-         '1'   => 'E (Habis)',
-         '2' => '1/4',
-         '3' => '1/2',
-         '4' => '3/4',
-         '5'   => 'F (Penuh)',
+         '1'   => "E (Habis)",
+         '2' => "'1/4 Indikator",
+         '3' => "'1/2 Indikator",
+         '4' => "'3/4 Indikator",
+         '5'   => "F (Penuh)",
     ];
     return isset($status[$status_id]) ? $status[$status_id] : 'Tidak Diketahui';
 }
 
 function bensin_inspeksi($status_id){
-    $status = [
-         '1'   => 'E (Habis)',
-         '2' => '1/4',
-         '3' => '1/2',
-         '4' => '3/4',
-         '5'   => 'F (Penuh)',
+     $status = [
+         '1'   => "E (Habis)",
+         '2' => "'1/4 Indikator",
+         '3' => "'1/2 Indikator",
+         '4' => "'3/4 Indikator",
+         '5'   => "F (Penuh)",
     ];
-    return isset($status[$status_id]) ? $status[$status_id] : 'Tidak Diketahui';
+    return isset($status[$status_id]) ? $status[$status_id] : 'Belum Di Cek';
 }
 

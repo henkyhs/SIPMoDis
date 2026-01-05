@@ -48,8 +48,41 @@ class Peminjaman extends CI_Controller {
         'statusPinjam'=> $this->input->get('statusPinjam', TRUE),
         'keperluan'=> $this->input->get('keperluan', TRUE), // 1 tersedia/2 dipinjam/dll
     ];
-        $data['dataPeminjamanAll'] =  $this->M_Peminjaman->getFilteredAll($filters);
-        $data['total']   = $this->M_Peminjaman->countFiltered($filters);
+         //  Paginations
+        $perPage = 20; //Untuk limit berapa data yang ditampilkan
+        $offset  = (int) $this->input->get('per_page'); // CI default query_string_segment = per_page
+
+        $totalRows = $this->M_Peminjaman->countFilteredAll($filters);
+
+        $config['base_url']            = site_url('peminjaman/index');
+        $config['total_rows']          = $totalRows;
+        $config['per_page']            = $perPage;
+
+        // pakai query string agar filter tetap kebawa
+        $config['page_query_string']   = TRUE;
+        $config['reuse_query_string']  = TRUE; 
+
+        // (opsional) styling bootstrap 4 / SB Admin 2
+        $config['full_tag_open']   = '<nav><ul class="pagination justify-content-end">';
+        $config['full_tag_close']  = '</ul></nav>';
+        $config['cur_tag_open']    = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']   = '</span></li>';
+        $config['num_tag_open']    = '<li class="page-item">';
+        $config['num_tag_close']   = '</li>';
+        $config['first_tag_open']  = '<li class="page-item">';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open']   = '<li class="page-item">';
+        $config['last_tag_close']  = '</li>';
+        $config['next_tag_open']   = '<li class="page-item">';
+        $config['next_tag_close']  = '</li>';
+        $config['prev_tag_open']   = '<li class="page-item">';
+        $config['prev_tag_close']  = '</li>';
+        $config['attributes']      = ['class' => 'page-link'];
+
+        $this->pagination->initialize($config);
+        $data['dataPeminjamanAll'] =  $this->M_Peminjaman->getFilteredAll($filters,$perPage,$offset);
+        $data['total']     = $totalRows;
+        $data['pagination']= $this->pagination->create_links();
         $data['contentView'] = 'pinjamAdmin/index';
         $this->load->view('template/main', $data);
     }
@@ -67,12 +100,45 @@ class Peminjaman extends CI_Controller {
         'statusPinjam'=> $this->input->get('statusPinjam', TRUE),
         'keperluan'=> $this->input->get('keperluan', TRUE), // 1 tersedia/2 dipinjam/dll
     ];
-        $data['dataPengajuan'] =  $this->M_Peminjaman->getFilteredByStatus($filters,$status);
-        $data['total']   = $this->M_Peminjaman->countFiltered($filters);
-       $data['contentView'] = 'pinjamAdmin/indexPengajuan';
+        //  Paginations
+        $perPage = 20; //Untuk limit berapa data yang ditampilkan
+        $offset  = (int) $this->input->get('per_page'); // CI default query_string_segment = per_page
+
+        $totalRows = $this->M_Peminjaman->countFilteredByStatus($filters,$status);
+
+        $config['base_url']            = site_url('peminjaman/indexButuhPersetujuan');
+        $config['total_rows']          = $totalRows;
+        $config['per_page']            = $perPage;
+
+        // pakai query string agar filter tetap kebawa
+        $config['page_query_string']   = TRUE;
+        $config['reuse_query_string']  = TRUE; 
+
+        // (opsional) styling bootstrap 4 / SB Admin 2
+        $config['full_tag_open']   = '<nav><ul class="pagination justify-content-end">';
+        $config['full_tag_close']  = '</ul></nav>';
+        $config['cur_tag_open']    = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']   = '</span></li>';
+        $config['num_tag_open']    = '<li class="page-item">';
+        $config['num_tag_close']   = '</li>';
+        $config['first_tag_open']  = '<li class="page-item">';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open']   = '<li class="page-item">';
+        $config['last_tag_close']  = '</li>';
+        $config['next_tag_open']   = '<li class="page-item">';
+        $config['next_tag_close']  = '</li>';
+        $config['prev_tag_open']   = '<li class="page-item">';
+        $config['prev_tag_close']  = '</li>';
+        $config['attributes']      = ['class' => 'page-link'];
+
+        $this->pagination->initialize($config);
+        $data['dataPengajuan'] =  $this->M_Peminjaman->getFilteredByStatus($filters,$status,$perPage,$offset);
+        $data['total']     = $totalRows;
+        $data['pagination']= $this->pagination->create_links();
+        $data['contentView'] = 'pinjamAdmin/indexPengajuan';
         $this->load->view('template/main', $data);
     }
-    // Menampilkan List Pengembalian Kunci
+    // Menampilkan List Pengambilan Kunci
     public function indexPengambilanKunci()
     {
         $data['activeMenu'] = 'pengambilan';
@@ -85,8 +151,41 @@ class Peminjaman extends CI_Controller {
             'statusPinjam'=> $this->input->get('statusPinjam', TRUE),
             'keperluan'=> $this->input->get('keperluan', TRUE), // 1 tersedia/2 dipinjam/dll
         ];
-        $data['dataPengambilan'] =  $this->M_Peminjaman->getFilteredByStatus($filters,$status);
-        $data['total']   = $this->M_Peminjaman->countFiltered($filters);
+        //  Paginations
+        $perPage = 20; //Untuk limit berapa data yang ditampilkan
+        $offset  = (int) $this->input->get('per_page'); // CI default query_string_segment = per_page
+
+        $totalRows = $this->M_Peminjaman->countFilteredByStatus($filters,$status);
+
+        $config['base_url']            = site_url('peminjaman/indexPengambilanKunci');
+        $config['total_rows']          = $totalRows;
+        $config['per_page']            = $perPage;
+
+        // pakai query string agar filter tetap kebawa
+        $config['page_query_string']   = TRUE;
+        $config['reuse_query_string']  = TRUE; 
+
+        // (opsional) styling bootstrap 4 / SB Admin 2
+        $config['full_tag_open']   = '<nav><ul class="pagination justify-content-end">';
+        $config['full_tag_close']  = '</ul></nav>';
+        $config['cur_tag_open']    = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']   = '</span></li>';
+        $config['num_tag_open']    = '<li class="page-item">';
+        $config['num_tag_close']   = '</li>';
+        $config['first_tag_open']  = '<li class="page-item">';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open']   = '<li class="page-item">';
+        $config['last_tag_close']  = '</li>';
+        $config['next_tag_open']   = '<li class="page-item">';
+        $config['next_tag_close']  = '</li>';
+        $config['prev_tag_open']   = '<li class="page-item">';
+        $config['prev_tag_close']  = '</li>';
+        $config['attributes']      = ['class' => 'page-link'];
+
+        $this->pagination->initialize($config);
+        $data['dataPengambilan'] =  $this->M_Peminjaman->getFilteredByStatus($filters,$status,$perPage,$offset);
+        $data['total']     = $totalRows;
+        $data['pagination']= $this->pagination->create_links();
         $data['contentView'] = 'pinjamAdmin/indexPengambilanKunci';
         $this->load->view('template/main', $data);
     }
@@ -103,8 +202,41 @@ class Peminjaman extends CI_Controller {
             'statusPinjam'=> $this->input->get('statusPinjam', TRUE),
             'keperluan'=> $this->input->get('keperluan', TRUE), // 1 tersedia/2 dipinjam/dll
         ];
-        $data['dataPengembalian'] =  $this->M_Peminjaman->getFilteredByStatus($filters,$status);
-        $data['total']   = $this->M_Peminjaman->countFiltered($filters);
+        //  Paginations
+        $perPage = 20; //Untuk limit berapa data yang ditampilkan
+        $offset  = (int) $this->input->get('per_page'); // CI default query_string_segment = per_page
+
+        $totalRows = $this->M_Peminjaman->countFilteredByStatus($filters,$status);
+
+        $config['base_url']            = site_url('peminjaman/indexPengembalianKunci');
+        $config['total_rows']          = $totalRows;
+        $config['per_page']            = $perPage;
+
+        // pakai query string agar filter tetap kebawa
+        $config['page_query_string']   = TRUE;
+        $config['reuse_query_string']  = TRUE; 
+
+        // (opsional) styling bootstrap 4 / SB Admin 2
+        $config['full_tag_open']   = '<nav><ul class="pagination justify-content-end">';
+        $config['full_tag_close']  = '</ul></nav>';
+        $config['cur_tag_open']    = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']   = '</span></li>';
+        $config['num_tag_open']    = '<li class="page-item">';
+        $config['num_tag_close']   = '</li>';
+        $config['first_tag_open']  = '<li class="page-item">';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open']   = '<li class="page-item">';
+        $config['last_tag_close']  = '</li>';
+        $config['next_tag_open']   = '<li class="page-item">';
+        $config['next_tag_close']  = '</li>';
+        $config['prev_tag_open']   = '<li class="page-item">';
+        $config['prev_tag_close']  = '</li>';
+        $config['attributes']      = ['class' => 'page-link'];
+
+        $this->pagination->initialize($config);
+        $data['dataPengembalian'] =  $this->M_Peminjaman->getFilteredByStatus($filters,$status,$perPage,$offset);
+        $data['total']     = $totalRows;
+        $data['pagination']= $this->pagination->create_links();
         $data['contentView'] = 'pinjamAdmin/indexPengembalian';
         $this->load->view('template/main', $data);
     }
@@ -393,6 +525,8 @@ class Peminjaman extends CI_Controller {
         }
 
         $data = $this->M_Peminjaman->getByTgl($start, $end);
+        // var_dump($data);
+        // die;
 
         // $this->load->helper('excel');
         export_peminjaman_excel($data, $start, $end);
@@ -412,8 +546,41 @@ class Peminjaman extends CI_Controller {
         'statusPinjam'=> $this->input->get('statusPinjam', TRUE),
         'keperluan'=> $this->input->get('keperluan', TRUE), // 1 tersedia/2 dipinjam/dll
     ];
-        $data['dataPinjam'] =  $this->M_Peminjaman->getFilteredByUser($filters,$id);
-        $data['total']   = $this->M_Peminjaman->countFiltered($filters);
+        //  Paginations
+        $perPage = 20; //Untuk limit berapa data yang ditampilkan
+        $offset  = (int) $this->input->get('per_page'); // CI default query_string_segment = per_page
+
+        $totalRows = $this->M_Peminjaman->countFilteredByUser($filters,$id);
+
+        $config['base_url']            = site_url('peminjaman/indexPeminjam');
+        $config['total_rows']          = $totalRows;
+        $config['per_page']            = $perPage;
+
+        // pakai query string agar filter tetap kebawa
+        $config['page_query_string']   = TRUE;
+        $config['reuse_query_string']  = TRUE; 
+
+        // (opsional) styling bootstrap 4 / SB Admin 2
+        $config['full_tag_open']   = '<nav><ul class="pagination justify-content-end">';
+        $config['full_tag_close']  = '</ul></nav>';
+        $config['cur_tag_open']    = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']   = '</span></li>';
+        $config['num_tag_open']    = '<li class="page-item">';
+        $config['num_tag_close']   = '</li>';
+        $config['first_tag_open']  = '<li class="page-item">';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open']   = '<li class="page-item">';
+        $config['last_tag_close']  = '</li>';
+        $config['next_tag_open']   = '<li class="page-item">';
+        $config['next_tag_close']  = '</li>';
+        $config['prev_tag_open']   = '<li class="page-item">';
+        $config['prev_tag_close']  = '</li>';
+        $config['attributes']      = ['class' => 'page-link'];
+
+        $this->pagination->initialize($config);
+        $data['dataPinjam'] =  $this->M_Peminjaman->getFilteredByUser($filters,$id,$perPage,$offset);
+        $data['total']     = $totalRows;
+        $data['pagination']= $this->pagination->create_links();
         $data['contentView'] = 'pinjamUser/index';
         $this->load->view('template/main', $data);
     }

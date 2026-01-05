@@ -99,5 +99,14 @@
   </tbody>
 </table>
     </form>
+    <div class="d-flex justify-content-between align-items-center">
+  <div class="text-muted small">
+    Total: <?= (int)$total; ?> data
+  </div>
+  <div>
+    <?= $pagination; ?>
+  </div>
+</div>
+
 
 </div>

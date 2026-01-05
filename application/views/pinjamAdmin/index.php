@@ -125,6 +125,15 @@
 </table>
      </form>
 
+<div class="d-flex justify-content-between align-items-center">
+  <div class="text-muted small">
+    Total: <?= (int)$total; ?> data
+  </div>
+  <div>
+    <?= $pagination; ?>
+  </div>
+</div>
+
 </div>
 <!-- Pelaporan -->
  <div class="modal fade" id="modalExport" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
