@@ -114,5 +114,6 @@
   		</div>
 	
         <button type="submit" class="btn btn-success">Simpan</button>
+        <a href="<?= site_url('mobil') ?>" class="btn btn-outline-danger btn-block">Kembalil</a>
     </form>
 </div>

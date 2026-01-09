@@ -5,6 +5,26 @@
         <div class="alert alert-danger text-center">
             <?= $this->session->flashdata('error'); ?>
         </div>
+    <?php  elseif($this->session->flashdata('dangerTolak')):?>
+        <div class="alert alert-success text-center">
+            <?= $this->session->flashdata('dangerTolak'); ?>
+        </div>
+    <?php  elseif($this->session->flashdata('successSetuju')):?>
+        <div class="alert alert-danger text-center">
+            <?= $this->session->flashdata('successSetuju'); ?>
+        </div>
+    <?php  elseif($this->session->flashdata('successAmbil')):?>
+        <div class="alert alert-danger text-center">
+            <?= $this->session->flashdata('successAmbil'); ?>
+        </div>
+    <?php  elseif($this->session->flashdata('successTerima')):?>
+        <div class="alert alert-danger text-center">
+            <?= $this->session->flashdata('successTerima'); ?>
+        </div>
+    <?php  elseif($this->session->flashdata('successSelesaikan')):?>
+        <div class="alert alert-danger text-center">
+            <?= $this->session->flashdata('successSelesaikan'); ?>
+        </div>
     <?php endif; ?>
       <button type="button" class="btn btn-sm btn-success mb-3" data-toggle="modal" data-target="#modalExport">
                 Cetak Laporan
@@ -105,9 +125,9 @@
       </td>
 
       <!-- Status -->
-      <td>
-        <?= status_badge($r->statusPinjam)?>
-      </td>
+        <td><p class="text-m font-weight-bold mb-0"><?= status_badge($r->statusPinjam)?></p>
+            <p class="text-xs text-secondary mb-0">Terakhir Update: <?= date('d M Y', strtotime($r->updatedAt)); ?></p>
+        </td>
 
       <!-- Aksi -->
       <td><?php

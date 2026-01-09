@@ -16,6 +16,7 @@
                    class="form-control">
             <div class="text-danger"><?= form_error('namaPerlengkapan'); ?></div>
         </div>	
-        <button type="submit" class="btn btn-success">Simpan</button>
+        <button type="submit" class="btn btn-success btn-block">Simpan</button>
+         <a href="<?= site_url('perlengkapan') ?>" class="btn btn-outline-danger btn-block">Kembalil</a>
     </form>
 </div>

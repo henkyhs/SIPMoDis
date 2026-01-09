@@ -46,7 +46,7 @@ class M_User extends CI_Model {
 	public function getFiltered(array $filters,$limit,$offset)
 	{
 		$this->_applyFilters($filters);
-
+		$this->db->where('tbl_userpegawai.idUSer !=', 'U-0001');
 		// $this->db->order_by('tbl_userpagawai.createdAt', 'ASC');
 		$this->db->limit($limit, $offset);
 
@@ -61,7 +61,11 @@ class M_User extends CI_Model {
 
 	public function getWhere_user($id)
 	{
-		return $this->db->get_where('tbl_userpegawai',['idUser' => $id])->row();
+		$this->db->select('u.*, s.namaSeksi');
+		$this->db->from('tbl_userpegawai u');
+		$this->db->join('tbl_seksi s', 's.idSeksi = u.idSeksi', 'left');
+		$this->db->where('u.idUser',$id);
+		return $this->db->get()->row();
 	}
 	public function getbyPegawai($id)
 	{

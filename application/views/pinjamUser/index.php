@@ -6,6 +6,10 @@
     <?php endif; ?>
     <h2 class="mb-3">Riwayat Peminjaman</h2>
 
+    <a href="<?= site_url('peminjaman/formSavePengajuan'); ?>" class="btn btn-primary mb-3">
+        + Ajukan Peminjaman
+    </a>
+
     <!-- Tabel dengan id agar dikenali oleh DataTables -->
 <table class="table table-hover">
   <thead>
@@ -54,22 +58,24 @@
       </td>
 
       <!-- Status -->
-      <td>
-        <?= status_badge($r->statusPinjam)?>
-      </td>
+        <td><p class="text-m font-weight-bold mb-0"><?= status_badge($r->statusPinjam)?></p>
+            <p class="text-xs text-secondary mb-0">Terakhir Update: <?= date('d M Y', strtotime($r->updatedAt)); ?></p>
+        </td>
 
       <!-- Aksi -->
       <td>
         <?php if(($r->statusPinjam) == 0 ): ?>
 						<a href="<?= site_url('peminjaman/formUpdatePengajuan/'.$r->idPeminjaman) ?>" class="btn btn-sm btn-warning btn-block">Edit</a>
-						<button type="button" class="btn btn-sm btn-danger btn-block" data-toggle="modal" data-target="#hapusDraftModal">
-                Hapus
-            </button>
+						<a href="<?= site_url('peminjaman/deleteDraft/'.$r->idPeminjaman); ?>" class="btn btn-sm btn-danger btn-block"
+               onclick="return confirm('Yakin hapus data ini?');">
+               Hapus Draft
+            </a>
 						<?php elseif(($r->statusPinjam)==1 OR ($r->statusPinjam)==2 ): ?>
             <a href="<?= site_url('peminjaman/detailPeminjaman/'.$r->idPeminjaman) ?>" class="btn btn-sm btn-warning btn-block">Detail</a>
-						<button type="button" class="btn btn-sm btn-danger btn-block" data-toggle="modal" data-target="#batalModal">
-                Batalkan Pengajuan
-            </button>
+						<a href="<?= site_url('peminjaman/pembatalanPengajuan/'.$r->idPeminjaman); ?>" class="btn btn-sm btn-danger btn-block"
+               onclick="return confirm('Yakin batalkan pengajuan ini?');">
+               Batalkan Pengajuan
+            </a>
             <?php elseif(($r->statusPinjam)==3 ): ?>
             <a href="<?= site_url('peminjaman/detailPeminjaman/'.$r->idPeminjaman) ?>" class="btn btn-sm btn-warning btn-block">Detail</a>
 						<a href="<?= site_url('peminjaman/formPengembalianKunci/'.$r->idPeminjaman) ?>" class="btn btn-sm btn-primary btn-block" >Kembalikan Kunci</a>
@@ -93,41 +99,3 @@
 </div>
 
 </div>
-
-<!-- Hapus Draft-->
-  <div class="modal fade" id="hapusDraftModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Yakin akan hapus data?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Data yang dihapus akan hilang selamanya</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-          <a class="btn btn-danger" href="<?= site_url('peminjaman/deleteDraft/'.$r->idPeminjaman) ?>">Hapus Data</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Batal Pengajuan -->
-  <div class="modal fade" id="batalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Yakin akan membatalkan pengajuan?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Pengajuan akan dibatalkan dan harus diajukan ulang</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Kembali</button>
-          <a class="btn btn-danger" href="<?= site_url('peminjaman/pembatalanPengajuan/'.$r->idPeminjaman) ?>">Batalkan Pengajuan</a>
-        </div>
-      </div>
-    </div>
-  </div>

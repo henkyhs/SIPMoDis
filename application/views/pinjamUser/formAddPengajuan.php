@@ -28,15 +28,6 @@
             <div class="text-danger"><?= form_error('tglPeminjaman'); ?></div>
 		</div>
         
-        <!-- <div class="mb-3">
-			<label for="preferensiMobil">Preferensi Mobil</label>
-			<select name="preferensiMobil" class="form-control" required>
-				<option value="">-- Pilih Mobil --</option>
-                <option value="1">Matic</option>
-                <option value="2">Manual</option>
-                <option value="3">Matic dan Manual</option>
-			</select>
-		</div> -->
         <div class="form-group">
             <label>Preferensi Jenis Mobil</label>
             <small class="text-muted d-block mb-1">Pilih jenis transmisi yang diutamakan.</small>
@@ -92,8 +83,7 @@
 			<label for="lampiran">Upload Lampiran (PDF) *max 2MB (Jika anda memilih visit)</label>
 			<input type="file" name="lampiran" id="lampiranCustom" class="form-control" accept=".pdf">
 		</div>
-
-		<button type="submit" class="btn btn-primary btn-block" name="statusPinjam" value="0">Simpan sebagai Draft</button>
-    	<button type="submit" class="btn btn-success btn-block" name="statusPinjam" value="1">Ajukan</button>
+        <button type="submit" class="btn btn-success btn-block" name="statusPinjam" value="1">Ajukan</button>
+		<button type="submit" class="btn btn-outline-primary btn-block" name="statusPinjam" value="0">Simpan sebagai Draft</button>
     </form>
 </div>

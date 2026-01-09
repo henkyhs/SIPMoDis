@@ -1,6 +1,18 @@
 <div class="container mt-4">
     <h2 class="mb-3">Data Mobil Dinas</h2>
-
+     <?php if ($this->session->flashdata('successAdd')): ?>
+        <div class="alert alert-success text-center">
+            <?= $this->session->flashdata('successAdd'); ?>
+        </div>
+    <?php  elseif($this->session->flashdata('successUpdate')):?>
+        <div class="alert alert-success text-center">
+            <?= $this->session->flashdata('successUpdate'); ?>
+        </div>
+    <?php  elseif($this->session->flashdata('dangerDelete')):?>
+        <div class="alert alert-danger text-center">
+            <?= $this->session->flashdata('dangerDelete'); ?>
+        </div>
+    <?php endif; ?>
     <a href="<?= site_url('mobil/addForm'); ?>" class="btn btn-primary mb-3">
         + Tambah Data Mobil
     </a>
@@ -60,7 +72,9 @@
                 <?php $no=1; foreach($mobils as $m): ?>
                 <tr>
                     <td><?= $no++ ?></td>
-                    <td><?= $m->namaMobil ?></td>
+                    <td><p class="text-m font-weight-bold mb-0"><?= $m->namaMobil ?></p>
+                        <p class="text-xs text-secondary mb-0">Terakhir Update: <?= date('d M Y', strtotime($m->updatedAt)); ?></p>
+                    </td>
                     <td><?= $m->platNomor ?></td>
                     <td>
                         <?= status_mobil($m->kondisiMobil); ?>
@@ -68,9 +82,10 @@
                     <td><?= jenis_mobil($m->transmisi)?></td>
                     <td>
                         <a href="<?= site_url('mobil/detailMobil/'.$m->idMobil) ?>" class="btn btn-sm btn-warning btn-block">Detail</a>
-                       <button type="button" class="btn btn-sm btn-danger btn-block" data-toggle="modal" data-target="#hapusMobilModal">
-                Hapus
-            </button>
+                       <a href="<?= site_url('mobil/delete/'.$m->idMobil); ?>" class="btn btn-sm btn-danger btn-block"
+                           onclick="return confirm('Yakin hapus data ini?');">
+                           Hapus
+                        </a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -87,22 +102,3 @@
   </div>
 </div>
 </div>
-
- <!-- Hapus-->
-  <div class="modal fade" id="hapusMobilModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Yakin akan hapus data?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Data yang dihapus akan hilang selamanya</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-          <a class="btn btn-danger" href="<?= site_url('mobil/delete/'.$m->idMobil) ?>">Hapus Data</a>
-        </div>
-      </div>
-    </div>
-  </div>

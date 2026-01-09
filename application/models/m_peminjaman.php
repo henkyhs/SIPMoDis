@@ -317,7 +317,7 @@ class M_Peminjaman extends CI_Model {
 		   $kode = 1;
 		  }
 		  $kodemax = str_pad($kode, 10, "0", STR_PAD_LEFT); // angka 4 menunjukkan jumlah digit angka 0
-		  $kodejadi = "P".$kodemax;    // hasilnya S-0001 dst.
+		  $kodejadi = "PM-".$kodemax;    // hasilnya S-0001 dst.
 		  return $kodejadi;
 	}
 
@@ -373,9 +373,10 @@ class M_Peminjaman extends CI_Model {
 		->join('tbl_userpegawai verifikator', 'verifikator.idUser = p.idVerifikator','left')
 		->join('tbl_userpegawai penerima', 'penerima.idUser = p.idPenerima','left')
 		->join('tbl_userpegawai pemberi', 'pemberi.idUser = p.idPemberi','left')
-		->join('tbl_mobil m','m.idMobil = p.idMobil')
-        ->where('DATE(p.tglPeminjaman) >=', $tglMulai)
-        ->where('DATE(p.tglPeminjaman) <=', $tglSelesai)
+		->join('tbl_mobil m','m.idMobil = p.idMobil','left')
+		->where('p.statusPinjam !=', 0)
+        ->where('DATE(p.createdAt) >=', $tglMulai)
+        ->where('DATE(p.createdAt) <=', $tglSelesai)
         ->order_by('p.tglPeminjaman', 'DESC')
         ->get()->result();
 	}

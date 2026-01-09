@@ -99,8 +99,7 @@
 
             <div class="text-danger small"><?= form_error('lampiran'); ?></div>
         </div>
-
-		<button type="submit" class="btn btn-primary btn-block" name="statusPinjam" value="0">Simpan sebagai Draft</button>
-    	<button type="submit" class="btn btn-success btn-block" name="statusPinjam" value="1">Ajukan</button>
+        <button type="submit" class="btn btn-success btn-block" name="statusPinjam" value="1">Ajukan</button>
+		<button type="submit" class="btn btn-outline-primary btn-block" name="statusPinjam" value="0">Simpan sebagai Draft</button>
     </form>
 </div>

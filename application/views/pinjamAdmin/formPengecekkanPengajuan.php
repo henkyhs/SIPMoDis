@@ -52,7 +52,7 @@
 			</select>
 		</div>
 
-		<a href="<?= site_url('peminjaman/formPenolakanPengajuan/'.$pinjam->idPeminjaman) ?>" class="btn btn-danger">Tolak Pengajuan</a>
-    	<button type="submit" class="btn btn-success" name="statusPinjam" value="2">Setujui</button>
+		<a href="<?= site_url('peminjaman/formPenolakanPengajuan/'.$pinjam->idPeminjaman) ?>" class="btn btn-outline-danger btn-block">Tolak Pengajuan</a>
+    	<button type="submit" class="btn btn-success btn-block" name="statusPinjam" value="2">Setujui</button>
     </form>
 </div>

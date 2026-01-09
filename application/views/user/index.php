@@ -1,5 +1,18 @@
 <div class="container mt-4">
     <h2 class="mb-3">Data User</h2>
+    <?php if ($this->session->flashdata('successAdd')): ?>
+        <div class="alert alert-success text-center">
+            <?= $this->session->flashdata('successAdd'); ?>
+        </div>
+    <?php  elseif($this->session->flashdata('successUpdate')):?>
+        <div class="alert alert-success text-center">
+            <?= $this->session->flashdata('successUpdate'); ?>
+        </div>
+    <?php  elseif($this->session->flashdata('error')):?>
+        <div class="alert alert-danger text-center">
+            <?= $this->session->flashdata('error'); ?>
+        </div>
+    <?php endif; ?>
 
     <a href="<?= site_url('user/addForm'); ?>" class="btn btn-primary mb-3">
         + Tambah Data User
@@ -43,7 +56,8 @@
 				<th>NIP</th>
                 <th>Nama Pegawai</th>
 				<th>Seksi</th>
-                <th>Role User</th>
+                <th>Role</th>
+                <th>Status</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -60,8 +74,14 @@
 					<td><?= $u->namaSeksi ?></td>
                     <td><?= role_user($u->role)?></td>
                     <td>
-						<a href="<?= site_url('user/detail/'.$u->idUser) ?>" class="btn btn-sm btn-warning btn-block">Detail</a>
-                        <a href="<?= site_url('user/delete/'.$u->idUser) ?>" class="btn btn-sm btn-danger btn-block" onclick="return confirm('Yakin hapus?')">Hapus</a>
+                        <?php if ((int)$u->isActive === 1): ?>
+                        <span class="badge badge-success">Aktif</span>
+                        <?php else: ?>
+                        <span class="badge badge-secondary">Nonaktif</span>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+						<a href="<?= site_url('user/editForm/'.$u->idUser) ?>" class="btn btn-sm btn-warning btn-block">Detail</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

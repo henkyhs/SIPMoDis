@@ -34,8 +34,7 @@
     		<label for="exampleFormControlTextarea1">Catatan</label>
     		<textarea class="form-control" name="catatanInspeksi" id="tujuan" rows="3"></textarea>
   		</div>
-
-        <a href="<?= site_url('peminjaman/formPengecekkanPengajuan/'.$pinjam->idPeminjaman) ?>" class="btn btn-secondary">Kembali</a>
-		<a href="<?= site_url('peminjaman/PenolakanPengajuan/'.$pinjam->idPeminjaman) ?>" class="btn btn-danger" onclick="return confirm('Yakin batal?')">Tolak Pengajuan</a>
+        <a href="<?= site_url('peminjaman/PenolakanPengajuan/'.$pinjam->idPeminjaman) ?>" class="btn btn-danger btn-block" onclick="return confirm('Yakin batal?')">Tolak Pengajuan</a>
+        <a href="<?= site_url('peminjaman/formPengecekkanPengajuan/'.$pinjam->idPeminjaman) ?>" class="btn btn-outline-danger btn-block">Kembali</a>
     </form>
 </div>

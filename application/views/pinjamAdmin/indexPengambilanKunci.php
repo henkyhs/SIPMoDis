@@ -81,10 +81,9 @@
       </td>
 
       <!-- Status -->
-      <td>
-       <?= status_badge($r->statusPinjam)?>
-      </td>
-
+        <td><p class="text-m font-weight-bold mb-0"><?= status_badge($r->statusPinjam)?></p>
+            <p class="text-xs text-secondary mb-0">Terakhir Update: <?= date('d M Y', strtotime($r->updatedAt)); ?></p>
+        </td>
       <!-- Aksi -->
       <td>
          <a  href="<?= site_url('peminjaman/formPengambilanKunci/'.$r->idPeminjaman) ?>" class="btn btn-sm btn-primary btn-block">Detail</a>

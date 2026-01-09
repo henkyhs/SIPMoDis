@@ -38,6 +38,7 @@ class Peminjaman extends CI_Controller {
     // Admin
     // Menampilkan semua riwayat peminjaman
 	public function index() { 
+         require_role('1');
         $data['activeMenu'] = 'peminjaman';
         $data['title'] = 'Riwayat Peminjaman';
         // $data['dataPeminjamanAll'] = $this->M_Peminjaman->getAllData_peminjaman();
@@ -90,6 +91,7 @@ class Peminjaman extends CI_Controller {
     // Menampilkan List Pengajuan Peminjaman
     public function indexButuhPersetujuan()
     {
+         require_role('1');
         $data['activeMenu'] = 'pengajuan';
         $data['title'] = 'Data Pengajuan Peminjaman';
         $status = 1;
@@ -141,6 +143,7 @@ class Peminjaman extends CI_Controller {
     // Menampilkan List Pengambilan Kunci
     public function indexPengambilanKunci()
     {
+         require_role('1');
         $data['activeMenu'] = 'pengambilan';
         $data['title'] = 'Data Pengambilan Kunci';
         $status = 2;
@@ -192,6 +195,7 @@ class Peminjaman extends CI_Controller {
     // Menampilkan List Pengembalian Kunci
     public function indexPengembalianKunci()
     {
+         require_role('1');
         $data['activeMenu'] = 'pengembalian';
         $data['title'] = 'Data Pengembalian Kunci';
         $status = 4;
@@ -244,6 +248,7 @@ class Peminjaman extends CI_Controller {
      // Form Pengecekkan Pengajuan Peminjaman
     public function formPengecekkanPengajuan($id)
     {
+         require_role('1');
         $data['activeMenu'] = 'pengajuan';
         $data['title'] = 'Pengecekkan Pengajuan';
         $data['pinjam'] = $this->M_Peminjaman->getWhere_pengajuan($id);
@@ -278,6 +283,7 @@ class Peminjaman extends CI_Controller {
             'statusPinjam' => 2,
             'token' => $token,
             'idVerifikator' => $this->session->userdata('idUser'),
+            'updatedAt' => date('Y-m-d H:i:s')
 		];
         // Untuk update di tbl_log
         $idLog = $this->M_Peminjaman->createId_Log();
@@ -294,13 +300,14 @@ class Peminjaman extends CI_Controller {
 		$this->M_Peminjaman->update_mobilPinjam($idMobil,$dataMobil);
         $this->M_Peminjaman->insertData_log($dataLog);
 		$this->M_Peminjaman->update_Peminjaman($id, $data);
-		$this->session->set_flashdata('success', 'Data berhasil diperbarui');
+		$this->session->set_flashdata('successSetuju', 'Data berhasil disetujui');
 		redirect('peminjaman/indexButuhPersetujuan');
     }
 
     // Form Jika Pengajuan Ditolak
      public function formPenolakanPengajuan($id)
     {
+         require_role('1');
         $data['activeMenu'] = 'pengajuan';
         $data['title'] = 'Penolakan Pengajuan';
         $data['pinjam'] = $this->M_Peminjaman->getWhere_pengajuan($id);
@@ -313,7 +320,8 @@ class Peminjaman extends CI_Controller {
          $data = [
             'catatanInspeksi' => $this->input->post('catatanInspeksi'),
 			'idVerifikator' => $this->session->userdata('idUser'),
-			'statusPinjam' => 5
+			'statusPinjam' => 5,
+            'updatedAt' => date('Y-m-d H:i:s')
         ];
         $idLog = $this->M_Peminjaman->createId_Log();
         $dataLog = [
@@ -325,12 +333,14 @@ class Peminjaman extends CI_Controller {
         ];
         $this->M_Peminjaman->insertData_log($dataLog);
         $this->M_Peminjaman->update_Peminjaman($id, $data);
+        $this->session->set_flashdata('dangerTolak', 'Data berhasil diubah');
         redirect('peminjaman/indexButuhPersetujuan');
     }
 
     // Form pengambilan kunci dan verifikasi token
      public function formPengambilanKunci($id)
     {
+         require_role('1');
         $data['activeMenu'] = 'pengambilan';
         $data['title'] = 'Pengambilan Kunci';
         $data['pinjam'] = $this->M_Peminjaman->getWhere_pengajuan($id);
@@ -419,12 +429,14 @@ class Peminjaman extends CI_Controller {
         $this->M_Perlengkapan->insertData_peminjamanperlengkapan($id, $perlengkapanSupport);
         $this->M_Peminjaman->insertData_log($dataLog);
         $this->M_Peminjaman->update_Peminjaman($id, $data);
+        $this->session->set_flashdata('successAmbil', 'Kunci telah diambil');
         redirect('peminjaman/indexPengambilanKunci');
     }
 
      // Form untuk mengembalikan kunci
     public function formPenerimaanKunci($id)
     {
+         require_role('1');
         $data['activeMenu'] = 'dashboard';
         $data['title'] = 'Penerimaan Kunci';
         $data['pinjam'] = $this->M_Peminjaman->getWhere_pengajuan($id);
@@ -451,7 +463,8 @@ class Peminjaman extends CI_Controller {
             'catatanInspeksi' => $this->input->post('catatanInspeksi'),
             'statusPinjam' => $this->input->post('statusPinjam'),
             'idPenerima' => $this->session->userdata('idUser'),
-            'tglPengembalian' => date('Y-m-d')
+            'tglPengembalian' => date('Y-m-d'),
+            'updatedAt' => date('Y-m-d H:i:s')
         ];
         //Update perlengkapan (jika ada checklist)
         $perlengkapan = $this->input->post('perlengkapanSupport');
@@ -477,6 +490,7 @@ class Peminjaman extends CI_Controller {
 		$this->M_Peminjaman->update_Peminjaman($id, $data);
         $dataMobil = ['kondisiMobil'=>1];
         $this->M_Peminjaman->update_mobilPinjam($idMobil,$dataMobil);
+        $this->session->set_flashdata('successTerima', 'Kunci telah diterima admin');
         redirect('peminjaman/');
     }
 
@@ -485,7 +499,8 @@ class Peminjaman extends CI_Controller {
         $mobil = $this->M_Peminjaman->getWhere_pengajuan($id);
         $idMobil = $mobil->idMobil;
          $data = [
-			'statusPinjam' => 8
+			'statusPinjam' => 8,
+            'updatedAt' => date('Y-m-d H:i:s')
         ];
         $idLog = $this->M_Peminjaman->createId_Log();
         $dataLog = [
@@ -497,7 +512,8 @@ class Peminjaman extends CI_Controller {
         ];
         $this->M_Peminjaman->insertData_log($dataLog);
         $this->M_Peminjaman->update_Peminjaman($id, $data);
-        redirect('peminjaman/indexPeminjam');
+        $this->session->set_flashdata('successSelesaikan', 'Peminjaman telah diselesaikan');
+        redirect('peminjaman/index');
     }
     // Untuk Pelaporan 
     public function exportExcel()
@@ -536,6 +552,7 @@ class Peminjaman extends CI_Controller {
     // Menampilkan riwayat peminjaman dari peminjam
     public function indexPeminjam()
     {
+         require_role('2');
         $id = $this->session->userdata('idUser');
         $data['title'] = 'Riwayat Peminjaman';
         $data['activeMenu'] = 'seksi';
@@ -587,6 +604,7 @@ class Peminjaman extends CI_Controller {
     // Form untuk mengajukan peminjaman
     public function formSavePengajuan()
     {
+         require_role('2');
         $data['activeMenu'] = 'seksi';
         $data['title'] = 'Pengajuan Peminjaman';
         $idUser = $this->session->userdata('idUser');
@@ -677,7 +695,7 @@ class Peminjaman extends CI_Controller {
     $keperluan = $this->input->post('keperluan');
     $isVisit = ($keperluan === '1');
     $hasFile = (!empty($_FILES['lampiran']['name']));
-
+    $status = $this->input->post('statusPinjam');
     if ($isVisit && !$hasFile) {
         $this->session->set_flashdata('error', 'Lampiran wajib untuk keperluan Visit.');
         return redirect('peminjaman/formSavePengajuan');
@@ -686,14 +704,13 @@ class Peminjaman extends CI_Controller {
 			'idPeminjaman' => $this->input->post('idPeminjaman'),
             'idPeminjam' => $this->session->userdata('idUser'),
             'tglPeminjaman' => $this->input->post('tglPeminjaman'),
-            'statusPinjam' => $this->input->post('statusPinjam'),
+            'statusPinjam' => $status,
             'keperluan' => $keperluan,
             'tujuan' => $this->input->post('tujuan'),
             'preferensiTransmisi'  => $this->input->post('preferensiTransmisi'),
             'lampiran' => $lampiran,
             'idSeksi' => $this->session->userdata('idSeksi'),
-            'createdAt' => date('Y-m-d H:i:s'),
-            'updatedAt' => date('Y-m-d H:i:s')
+            'createdAt' => date('Y-m-d H:i:s')
         ];
         $idLog = $this->M_Peminjaman->createId_Log();
         $dataLog = [
@@ -705,6 +722,17 @@ class Peminjaman extends CI_Controller {
         ];
         $this->M_Peminjaman->insertData_log($dataLog);
         $this->M_Peminjaman->insertData_peminjaman($data);
+        if($status==='1')
+        {
+            $this->session->set_flashdata('successAjukan', 'Pengajuan telah dilakukan');
+        }
+        elseif($status==='0')
+        {
+            $this->session->set_flashdata('successDraft', 'Draft telah dibuat');
+        }
+        else{
+            $this->session->set_flashdata('gagal', 'Data gagal');
+        };
         redirect('peminjaman/indexPeminjam');
         }
     }
@@ -714,6 +742,7 @@ class Peminjaman extends CI_Controller {
     // Form Update Pengajuan
     public function formUpdatePengajuan($id)
     {
+         require_role('2');
         $data['activeMenu'] = 'seksi';
         $data['title'] = 'Update Draft Pengajuan';
         $data['pinjam'] = $this->M_Peminjaman->getWhere_pengajuan($id);
@@ -734,6 +763,7 @@ class Peminjaman extends CI_Controller {
             'keperluan' => $this->input->post('keperluan'),
             'tujuan' => $this->input->post('tujuan'),
             'preferensiTransmisi'  => $this->input->post('preferensiTransmisi'),
+            'updatedAt' => date('Y-m-d H:i:s'),
             'lampiran' => $lampiran
 		];
         $idLog = $this->M_Peminjaman->createId_Log();
@@ -768,6 +798,7 @@ class Peminjaman extends CI_Controller {
     // Form untuk mengembalikan kunci
     public function formPengembalianKunci($id)
     {
+         require_role('2');
         $data['activeMenu'] = 'dashboard';
         $data['title'] = 'Pengembalian Kunci';
         $data['pinjam'] = $this->M_Peminjaman->getWhere_pengajuan($id);
@@ -807,14 +838,15 @@ class Peminjaman extends CI_Controller {
         ];
         $this->M_Peminjaman->insertData_log($dataLog);
 		$this->M_Peminjaman->update_Peminjaman($id, $data);
+        $this->session->set_flashdata('successKembali', 'Proses pengembalian dimulai');
         redirect('peminjaman/indexPeminjam');
     }
 
     // Untuk proses pembatalan
     public function pembatalanPengajuan($id)
     {
-        $mobil = $this->M_Peminjaman->getWhere_pengajuan($id);
-        $idMobil = $mobil->idMobil;
+        $pinjam = $this->M_Peminjaman->getWhere_pengajuan($id);
+        $idMobil = $pinjam->idMobil;
          $data = [
 			'idPeminjam' => $this->session->userdata('idUser'),
 			'statusPinjam' => 6

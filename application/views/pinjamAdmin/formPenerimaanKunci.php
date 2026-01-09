@@ -132,7 +132,7 @@
     		<label for="exampleFormControlTextarea1">Catatan Kita</label>
     		<textarea class="form-control" name="catatanInspeksi" id="tujuan" rows="3"></textarea>
   		</div>
-    <button type="submit" class="btn btn-warning btn-block" name="statusPinjam" value="7">Selesai dengan Catatan</button>
+    <button type="submit" class="btn  btn-outline-warning btn-block" name="statusPinjam" value="7">Selesai dengan Catatan</button>
     <button type="submit" class="btn btn-success btn-block" name="statusPinjam" value ="8">Selesai</button>
     </form>
 </div>

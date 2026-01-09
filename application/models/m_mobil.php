@@ -117,7 +117,7 @@ class M_Mobil extends CI_Model {
 		   $kode = 1;
 		  }
 		  $kodemax = str_pad($kode, 4, "0", STR_PAD_LEFT); // angka 4 menunjukkan jumlah digit angka 0
-		  $kodejadi = "M".$kodemax;    // hasilnya S-0001 dst.
+		  $kodejadi = "M-".$kodemax;    // hasilnya S-0001 dst.
 		  return $kodejadi;
 	}
 }

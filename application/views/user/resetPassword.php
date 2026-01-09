@@ -26,22 +26,56 @@
       <!-- Nama Pegawai -->
         <div class="mb-3">
             <label for="oldPassword">Password Lama</label>
-            <input type="password" name="passwordLama" id="passwordLama" 
-                   class="form-control" required>
+            <div class="input-group">
+                <input type="password" name="passwordLama" id="passwordLama" 
+                    class="form-control" required>
+                <div class="input-group-append">
+                    <button 
+                        class="btn btn-outline-secondary" 
+                        type="button"
+                        id="togglePassword"
+                    >
+                        <i class="fa fa-eye"></i>
+                    </button>
+                </div>
+            </div>
         </div>
 		<!-- Username -->
-        <div class="mb-3">
+         <div class="mb-3">
             <label for="newPassword">Password Baru</label>
-            <input type="password" name="passwordBaru" id="passwordBaru" 
-                   class="form-control" required>
+            <div class="input-group">
+                <input type="password" name="passwordBaru" id="passwordBaru" 
+                    class="form-control" required>
+                <div class="input-group-append">
+                    <button 
+                        class="btn btn-outline-secondary" 
+                        type="button"
+                        id="togglePassword"
+                    >
+                        <i class="fa fa-eye"></i>
+                    </button>
+                </div>
+            </div>
         </div>
 		<!-- NIP -->
         <div class="mb-3">
-            <label for="nip">Konfirmasi Password</label>
-            <input type="password" name="konfirmasiPassword" id="konfirmasiPassword" 
-                   class="form-control" required>
+            <label for="passwordConfirmation">Password Lama</label>
+            <div class="input-group">
+                <input type="password" name="konfirmasiPassword" id="konfirmasiPassword" 
+                    class="form-control" required>
+                <div class="input-group-append">
+                    <button 
+                        class="btn btn-outline-secondary" 
+                        type="button"
+                        id="togglePassword"
+                    >
+                        <i class="fa fa-eye"></i>
+                    </button>
+                </div>
+            </div>
         </div>
 	
-        <button type="submit" class="btn btn-success">Simpan</button>
+        <button type="submit" class="btn btn-success btn-block">Simpan</button>
+         <a href="<?= site_url('dashboard') ?>" class="btn btn-outline-danger btn-block">Kembalil</a>
     </form>
 </div>

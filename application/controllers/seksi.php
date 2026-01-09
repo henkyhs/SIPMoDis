@@ -11,7 +11,7 @@ class Seksi extends CI_Controller {
 		// Cek Log In
 		is_LoggedIn();
 		// Hanya admin (role 1) yang diizinkan
-        // cekRole([1]);
+         require_role('1');
     }
      private function _rules()
     {
@@ -97,6 +97,7 @@ class Seksi extends CI_Controller {
         ];
 
         $this->M_Seksi->insertData_seksi($data);
+        $this->session->set_flashdata('successAdd', 'Data berhasil ditambahkan');
         redirect('seksi');
         }
     }
@@ -123,6 +124,7 @@ class Seksi extends CI_Controller {
         ];
 
         $this->M_Seksi->update_seksi($id, $data);
+        $this->session->set_flashdata('successUpdate', 'Data berhasil diubah');
         redirect('seksi');
         }
     }
@@ -130,6 +132,7 @@ class Seksi extends CI_Controller {
     // Proses hapus data
     public function delete($id) {
         $this->M_Seksi->delete_seksi($id);
+        $this->session->set_flashdata('dangerDelete', 'Data berhasil dihapus');
         redirect('seksi');
     }
 }

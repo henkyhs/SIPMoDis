@@ -20,14 +20,11 @@ class Dashboard extends CI_Controller {
 		if ($role==1){
 			$data['mobil']= $this->M_Mobil->hitungMobilTersedia();
 			$data['pending']= $this ->M_Peminjaman->hitungStatusPeminjaman(1);
-			$data['pengembalian']= $this ->M_Peminjaman->hitungStatusPeminjaman(1);
+			$data['pengembalian']= $this ->M_Peminjaman->hitungStatusPeminjaman(4);
 			$data['limaPengajuan'] = $this->M_Peminjaman->getLimaPengajuan();
 			$data['limaRiwayat'] = $this->M_Peminjaman->getLimaRiwayat();
-			$this->load->view('template/header');
-			$this->load->view('template/sidebar',$data);
-			$this->load->view('template/topbar');
-			$this->load->view('dashboard/indexAdmin',$data);
-			$this->load->view('template/footer');
+			$data['contentView'] = 'dashboard/indexAdmin';
+        	$this->load->view('template/main', $data);
 		}
 		elseif ($role==2){
 			$id = $this->session->userdata('idUser');
@@ -39,11 +36,8 @@ class Dashboard extends CI_Controller {
 			} else {
 					$data['warningCatatan'] = false;
 				}
-			$this->load->view('template/header');
-			$this->load->view('template/sidebar',$data);
-			$this->load->view('template/topbar');
-			$this->load->view('dashboard/indexPeminjam',$data);
-			$this->load->view('template/footer');
+			$data['contentView'] = 'dashboard/indexPeminjam';
+        	$this->load->view('template/main', $data);
 
 		};
 		$data['mobil']= $this->M_Mobil->hitungMobil();

@@ -11,7 +11,7 @@ class Perlengkapan extends CI_Controller {
 		// Cek Log In
 		 is_LoggedIn();
 		// Hanya admin (role 1) yang diizinkan
-        // cekRole([1]);
+         require_role('1');
     }
     // Rules
      private function _rules()
@@ -94,6 +94,7 @@ class Perlengkapan extends CI_Controller {
         ];
 
         $this->M_Perlengkapan->insertData_perlengkapan($data);
+        $this->session->set_flashdata('successAdd', 'Data berhasil ditambahkan');
         redirect('perlengkapan');
         }
     }
@@ -118,6 +119,7 @@ class Perlengkapan extends CI_Controller {
         ];
 
         $this->M_Perlengkapan->update_perlengkapan($id, $data);
+        $this->session->set_flashdata('successUpdate', 'Data berhasil diubah');
         redirect('perlengkapan');
         }
     }
@@ -125,6 +127,7 @@ class Perlengkapan extends CI_Controller {
     // Proses hapus data
     public function delete($id) {
         $this->M_Perlengkapan->delete_perlengkapan($id);
+        $this->session->set_flashdata('dangerDelete', 'Data berhasil dihapus');
         redirect('perlengkapan');
     }
 }

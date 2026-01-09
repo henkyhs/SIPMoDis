@@ -110,7 +110,7 @@
     		<textarea class="form-control" name="catatanPeminjam" id="catatanPeminjam" rows="3"></textarea>
   		</div>
 
-		<a href="<?= site_url('peminjaman/indexPengambilanKunci/'.$pinjam->idPeminjaman) ?>" class="btn btn-secondary btn-block">Kembali</a>
+		<a href="<?= site_url('peminjaman/indexPengambilanKunci/'.$pinjam->idPeminjaman) ?>" class="btn btn-outline-danger btn-block">Kembali</a>
         <button type="submit" class="btn btn-primary btn-block" name="statusPinjam">Kembalikan Kunci</button>
     </form>
 </div>

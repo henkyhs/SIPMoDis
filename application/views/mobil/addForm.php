@@ -103,6 +103,7 @@
     		<textarea class="form-control" name="ket" id="keterangan" rows="3"></textarea>
   		</div>
 	
-        <button type="submit" class="btn btn-success">Simpan</button>
+        <button type="submit" class="btn btn-success btn-block">Simpan</button>
+        <a href="<?= site_url('mobil') ?>" class="btn btn-outline-danger btn-block">Kembalil</a>
     </form>
 </div>

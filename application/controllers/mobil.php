@@ -11,7 +11,7 @@ class Mobil extends CI_Controller {
 		// Cek Log In
 		 is_LoggedIn();
 		// Hanya admin (role 1) yang diizinkan
-        // cekRole([1]);
+        require_role('1');
     }
     // Rules
     private function _rules()
@@ -161,8 +161,8 @@ class Mobil extends CI_Controller {
             'atasNama' => $this->input->post('atasNama'),
             'ket' => $this->input->post('ket')
         ];
-
         $this->M_Mobil->insertData_mobil($data);
+        $this->session->set_flashdata('successAdd', 'Data berhasil ditambahkan');
         redirect('mobil');
         }
     }
@@ -223,8 +223,8 @@ class Mobil extends CI_Controller {
             'atasNama' => $this->input->post('atasNama'),
             'ket' => $this->input->post('ket')
         ];
-
         $this->M_Mobil->update_mobil($id, $data);
+        $this->session->set_flashdata('successUpdate', 'Data berhasil diubah');
         redirect('mobil');
         }
     }
@@ -232,6 +232,7 @@ class Mobil extends CI_Controller {
     public function detailMobil($id)
     {
         $data['activeMenu'] = 'mobil';
+        $data['title'] = 'Detail Mobil';
         $data['mobil'] = $this->M_Mobil->getwhere_mobil($id);
         $data['contentView'] = 'mobil/detail';
         $this->load->view('template/main', $data);
@@ -240,6 +241,7 @@ class Mobil extends CI_Controller {
     // Proses hapus data
     public function delete($id) {
         $this->M_Mobil->delete_mobil($id);
+        $this->session->set_flashdata('dangerDelete', 'Data berhasil dihapus');
         redirect('mobil');
     }
 }

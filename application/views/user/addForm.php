@@ -26,7 +26,7 @@
 
         <!-- No HP -->
         <div class="mb-3">
-            <label for="nip">No Handphone Aktif</label>
+            <label for="nip">No Handphone/WA Aktif</label>
             <input type="text" name="noHp" id="noHp" 
                    class="form-control" value="<?= set_value('noHp'); ?>">
             <div class="text-danger"><?= form_error('noHp'); ?></div>
@@ -52,6 +52,7 @@
 			</select>
 		</div>
 	
-        <button type="submit" class="btn btn-success">Simpan</button>
+        <button type="submit" class="btn btn-success btn-block">Simpan</button>
+         <a href="<?= site_url('user') ?>" class="btn btn-outline-danger btn-block">Kembalil</a>
     </form>
 </div>

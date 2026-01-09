@@ -10,14 +10,21 @@ function is_LoggedIn()
     }
 }
 
-function cekRole($allowed_roles = []) {
-    $CI =& get_instance(); // Dapatkan instance CI
+function require_role($roles = [])
+{
+    $ci = get_instance();
+    is_loggedIn();
 
-    $user_role = $CI->session->userdata('role');
+    $role = $ci->session->userdata('role');
+    if (!is_array($roles)) $roles = [$roles];
 
-    if (!$user_role || !in_array($user_role, $allowed_roles)) {
-        show_error('Akses ditolak. Anda tidak memiliki izin untuk mengakses halaman ini.', 403);
+    if (!in_array($role, $roles)) {
+        // Render 403 SB Admin 2
+        $ci->output->set_status_header(403);
+        echo $ci->load->view('errors/customs/403', [
+            'message' => 'Role Anda tidak diizinkan mengakses fitur ini.'
+        ], true);
         exit;
     }
-	// Role 1 = "Admin", Role 2 = "Peminjam", Role 3 = "Pemberi izin"
+	// Role 1 = "Admin", Role 2 = "Peminjam
 }

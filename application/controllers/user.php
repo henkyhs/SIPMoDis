@@ -65,6 +65,7 @@ class User extends CI_Controller {
     }   
     // Tampilkan semua mobil
     public function index() {
+        require_role('1');
         $filters = [
         'nip'   => $this->input->get('nip', TRUE),
         'namaPegawai' => $this->input->get('namaPegawai', TRUE),
@@ -119,6 +120,7 @@ class User extends CI_Controller {
 
     // Tampilkan form tambah
     public function addForm() {
+         require_role('1');
         $data['activeMenu'] = 'user';
         $data['title'] = 'Tambah Data User';
 		$data['dataIdUser'] = $this->M_User->createId_user();
@@ -141,9 +143,12 @@ class User extends CI_Controller {
             'password'    => password_hash('Kantorkita123', PASSWORD_DEFAULT),
             'noHp' => $this->input->post('noHp'),
 			'idSeksi' => $this->input->post('idSeksi'),
-            'role'        => $this->input->post('role')
+            'role'        => $this->input->post('role'),
+            'isActive' => 1,
+            'createdAt' =>  date('Y-m-d H:i:s')
         ];
         $this->M_User->insertData_User($data);
+         $this->session->set_flashdata('successAdd', 'Data berhasil ditambahkan');
         redirect('user');        
         }
        
@@ -181,6 +186,62 @@ class User extends CI_Controller {
         ];
         $this->M_User->update_user($id,$data);
         redirect('dashboard');
+    }
+
+    public function gantiStatus($id)
+    {
+        if ($id === $this->session->userdata('idUser')) {
+            $this->session->set_flashdata('error', 'Tidak bisa mengubah status akun sendiri');
+            redirect('user');
+        }
+        $data = [
+            'isActive' => $this->input->post('isActive'),
+            'updatedAt' => date('Y-m-d H:i:s')
+        ];
+        $this->M_User->update_user($id,$data);
+        redirect('user/editForm/'.$id);
+    }
+
+    // Tampilkan form profil saya
+    public function profilSaya() {
+        $id = $this->session->userdata('idUser');
+        $data['activeMenu'] = 'dashboard';
+        $data['title'] = 'Profil Saya';
+        $data['user'] = $this->M_User->getWhere_user($id);
+        $data['contentView'] = 'user/profilSaya';
+        $this->load->view('template/main', $data);
+    }
+    // Tampilkan form edit
+    public function editForm($id) {
+         require_role('1');
+        $data['activeMenu'] = 'user';
+        $data['title'] = 'Update Data User';
+        $data['user'] = $this->M_User->getWhere_user($id);
+        $data['listSeksi'] = $this->M_Seksi->getAllData_seksi();
+        $data['contentView'] = 'user/updateForm';
+        $this->load->view('template/main', $data);
+    }
+
+    // Proses update data
+    public function update($id) {
+        $this->_rules();
+
+        if ($this->form_validation->run() === FALSE) {
+            return $this->editForm($id);
+        } else {
+        $data = [
+            'namaPegawai' => $this->input->post('namaPegawai'),
+			'nip' => $this->input->post('nip'),
+            'noHp' => $this->input->post('noHp'),
+			'idSeksi' => $this->input->post('idSeksi'),
+            'role'        => $this->input->post('role'),
+            'updatedAt' =>  date('Y-m-d H:i:s')
+        ];
+
+        $this->M_User->update_user($id, $data);
+        $this->session->set_flashdata('successUpdate', 'Data berhasil diubah');
+        redirect('user');
+        }
     }
 
     // Proses hapus data

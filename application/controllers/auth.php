@@ -21,9 +21,16 @@ class Auth extends CI_Controller {
                     'namaPegawai' => $user->namaPegawai,
                     'nip' => $user->nip,
                     'idSeksi' => $user->idSeksi,
-                    'role' => $user->role
+                    'role' => $user->role,
+                    'isActive' => $user->isActive
                 ]);
-                redirect('dashboard');
+                if($this->session->userdata('isActive')==='1')
+                {
+                    redirect('dashboard');
+                }
+                else{
+                    $this->session->set_flashdata('error','Akun anda nonaktif, silahkan hubungi admin');
+                }    
             } else {
                 $this->session->set_flashdata('error', 'NIP atau password salah');
             }
