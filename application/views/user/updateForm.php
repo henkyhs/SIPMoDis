@@ -110,7 +110,7 @@
 
         
 
-        <button type="submit" class="btn btn-success">Update</button>
+        <button type="submit" class="btn btn-success btn-block">Update</button>
         <a href="<?= site_url('user') ?>" class="btn btn-outline-danger btn-block">Kembalil</a>
     </form>
 </div>

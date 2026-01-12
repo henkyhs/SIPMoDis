@@ -39,6 +39,7 @@
                     </button>
                 </div>
             </div>
+            
         </div>
 		<!-- Username -->
          <div class="mb-3">
@@ -59,7 +60,7 @@
         </div>
 		<!-- NIP -->
         <div class="mb-3">
-            <label for="passwordConfirmation">Password Lama</label>
+            <label for="passwordConfirmation">Konfirmasi Password</label>
             <div class="input-group">
                 <input type="password" name="konfirmasiPassword" id="konfirmasiPassword" 
                     class="form-control" required>

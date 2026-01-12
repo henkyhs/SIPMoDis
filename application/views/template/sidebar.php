@@ -88,14 +88,14 @@
         Pengajuan Peminjaman
       </div>
 			<!-- Nav Item - Charts -->
-      <li class="nav-item">
+      <li class="nav-item <?= ($activeMenu == 'riwayatPeminjaman') ? 'active' : ''; ?>">
         <a class="nav-link" href="<?= base_url('peminjaman/indexPeminjam');?> ">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Riwayat Peminjaman</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
+      <li class="nav-item <?= ($activeMenu == 'pengajuan') ? 'active' : ''; ?>">
         <a class="nav-link" href="<?= base_url('peminjaman/formSavePengajuan');?> ">
           <i class="fas fa-fw fa-pen"></i>
           <span>Ajukan Peminjaman</span></a>

@@ -34,7 +34,7 @@ class Perlengkapan extends CI_Controller {
         'namaPerlengkapan'        => $this->input->get('namaPerlengkapan', TRUE),
     ];
         //  Paginations
-        $perPage = 5; //Untuk limit berapa data yang ditampilkan
+        $perPage = 20; //Untuk limit berapa data yang ditampilkan
         $offset  = (int) $this->input->get('per_page'); // CI default query_string_segment = per_page
 
         $totalRows = $this->M_Perlengkapan->countFiltered($filters);
@@ -91,6 +91,8 @@ class Perlengkapan extends CI_Controller {
         $data = [
 			'idPerlengkapan' => $this->input->post('idPerlengkapan'),
             'namaPerlengkapan' => $this->input->post('namaPerlengkapan'),
+            'createdAt' => date('Y-m-d H:i:s'),
+            'updatedAt' => date('Y-m-d H:i:s')
         ];
 
         $this->M_Perlengkapan->insertData_perlengkapan($data);
@@ -116,6 +118,7 @@ class Perlengkapan extends CI_Controller {
         } else {
         $data = [
             'namaPerlengkapan' => $this->input->post('namaPerlengkapan'),
+            'updatedAt' => date('Y-m-d H:i:s')
         ];
 
         $this->M_Perlengkapan->update_perlengkapan($id, $data);

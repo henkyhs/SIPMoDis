@@ -14,55 +14,79 @@ class User extends CI_Controller {
 		// Hanya admin (role 1) yang diizinkan
         // cekRole([1]);
     }
-    // Rules
-    private function _rules()
+    // Cek NIP apakah sudah terdaftar atau belum
+    public function nipUnique($nip, $idUser)
     {
+        $this->db->where('nip', $nip);
+        $this->db->where('idUser !=', $idUser);
+        $exists = $this->db->get('tbl_userpegawai')->num_rows();
+
+        if ($exists > 0) {
+            $this->form_validation->set_message('nip_unique', 'NIP telah terdaftar');
+            return false;
+        }
+        return true;
+    }
+
+    // Rules
+    private function _rules($idUser = null)
+    {
+        $nip_rules = 'required|trim|numeric|exact_length[9]';
+
+        // CREATE: wajib unique
+        // UPDATE: unique tapi kecualikan id yang sedang diedit
+        if ($idUser) {
+            $nip_rules .= '|callback_nipUnique['.$idUser.']';
+        } else {
+            $nip_rules .= '|is_unique[tbl_userpegawai.nip]';
+        }
+
         $this->form_validation->set_rules(
             'nip',
             'NIP',
-            'required|trim|numeric|exact_length[9]|is_unique[tbl_userpegawai.nip]',
+            $nip_rules,
             [
                 'required' => 'Kolom tidak boleh kosong',
                 'numeric' => 'NIP harus berupa angka',
                 'exact_length' => 'NIP harus 9 digit',
-                'is_unique' => 'NIP telah terdaftar'
+                'is_unique' => 'NIP telah terdaftar',
+                'nipUnique' => 'NIP telah terdaftar'
             ]
         );
+
         $this->form_validation->set_rules(
             'namaPegawai',
-            'namaPegawai',
+            'Nama Pegawai',
             'required|trim',
-            [
-                'required' => 'Kolom tidak boleh kosong',
-            ]
+            ['required' => 'Kolom tidak boleh kosong']
         );
+
         $this->form_validation->set_rules(
             'idSeksi',
-            'idSeksi',
+            'Seksi',
             'required',
-            [
-                'required' => 'Kolom tidak boleh kosong',
-            ]
+            ['required' => 'Kolom tidak boleh kosong']
         );
+
         $this->form_validation->set_rules(
             'role',
-            'role',
+            'Role',
             'required',
-            [
-                'required' => 'Kolom tidak boleh kosong',
-            ]
+            ['required' => 'Kolom tidak boleh kosong']
         );
+
         $this->form_validation->set_rules(
             'noHp',
-            'noHp',
+            'No HP',
             'required|trim|numeric',
             [
                 'required' => 'Kolom tidak boleh kosong',
                 'numeric' => 'No HP harus berupa angka'
             ]
         );
-        
     }   
+
+    
     // Tampilkan semua mobil
     public function index() {
         require_role('1');
@@ -73,7 +97,7 @@ class User extends CI_Controller {
         'role'=> $this->input->get('role', TRUE), // 1 tersedia/2 dipinjam/dll
     ];
         //  Paginations
-        $perPage = 5; //Untuk limit berapa data yang ditampilkan
+        $perPage = 20; //Untuk limit berapa data yang ditampilkan
         $offset  = (int) $this->input->get('per_page'); // CI default query_string_segment = per_page
 
         $totalRows = $this->M_User->countFiltered($filters);
@@ -145,7 +169,8 @@ class User extends CI_Controller {
 			'idSeksi' => $this->input->post('idSeksi'),
             'role'        => $this->input->post('role'),
             'isActive' => 1,
-            'createdAt' =>  date('Y-m-d H:i:s')
+            'createdAt' =>  date('Y-m-d H:i:s'),
+            'updatedAt' => date('Y-m-d H:i:s')
         ];
         $this->M_User->insertData_User($data);
          $this->session->set_flashdata('successAdd', 'Data berhasil ditambahkan');
@@ -153,6 +178,7 @@ class User extends CI_Controller {
         }
        
     }
+
 
     public function formGantiPassword($id)
     {
@@ -224,7 +250,7 @@ class User extends CI_Controller {
 
     // Proses update data
     public function update($id) {
-        $this->_rules();
+        $this->_rules($id);
 
         if ($this->form_validation->run() === FALSE) {
             return $this->editForm($id);

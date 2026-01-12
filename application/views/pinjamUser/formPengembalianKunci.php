@@ -1,5 +1,5 @@
 <div class="container mt-4">
-    <h2>Form Pengambilan Kunci</h2>
+    <h2>Form Pengembalian Kunci</h2>
     <div class="card shadow mb-4">
         <!-- Card Header - Accordion -->
         <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
@@ -109,8 +109,7 @@
     		<label for="exampleFormControlTextarea1">Catatan Seteleh Peminjaman (Opsional)</label>
     		<textarea class="form-control" name="catatanPeminjam" id="catatanPeminjam" rows="3"></textarea>
   		</div>
-
-		<a href="<?= site_url('peminjaman/indexPengambilanKunci/'.$pinjam->idPeminjaman) ?>" class="btn btn-outline-danger btn-block">Kembali</a>
         <button type="submit" class="btn btn-primary btn-block" name="statusPinjam">Kembalikan Kunci</button>
+        <a href="<?= site_url('peminjaman/indexPengambilanKunci/'.$pinjam->idPeminjaman) ?>" class="btn btn-outline-danger btn-block">Batal</a>
     </form>
 </div>

@@ -175,7 +175,7 @@
                 <span class="text-muted">Token</span>
                 <strong class="text-right"><?= htmlspecialchars($pinjam->token ?? '-') ?></strong>
               <?php else: ?>
-                <div class="text-muted">Tidak ada lampiran.</div>
+                <div class="text-muted">Token belum tersedia.</div>
               <?php endif; ?>
             </div>
           <?php } endif?>

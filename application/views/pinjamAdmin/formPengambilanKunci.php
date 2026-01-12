@@ -64,7 +64,7 @@
             <input type="text" name="token" id="token" class="form-control" >
         </div>
 
-		<a href="<?= site_url('peminjaman/indexPengambilanKunci/'.$pinjam->idPeminjaman) ?>" class="btn btn-outline-danger btn-block">Kembali</a>
     <button type="submit" class="btn btn-success btn-block" name="statusPinjam">Ambil Kunci</button>
+    <a href="<?= site_url('peminjaman/indexPengambilanKunci/'.$pinjam->idPeminjaman) ?>" class="btn btn-outline-danger btn-block">Batal</a>
     </form>
 </div>

@@ -14,7 +14,7 @@
         </div>
     <?php endif; ?>
     <a href="<?= site_url('perlengkapan/addForm'); ?>" class="btn btn-primary mb-3">
-        + Tambah Data Perlengakapan
+        + Tambah Data Perlengkapan
     </a>
 
     <form method='GET' action ='<?= site_url('perlengkapan'); ?>'>
@@ -32,7 +32,7 @@
                 </th>
                 <th style="width:160px;">
             <button type="submit" class="btn btn-sm btn-primary btn-block">Filter</button>
-            <a href="<?= site_url('perlengkapan'); ?>" class="btn btn-sm btn-secondary btn-block">Reset</a>
+            <a href="<?= site_url('perlengkapan'); ?>" class="btn btn-sm btn-outline-secondary btn-block">Reset</a>
           </th>
             </tr>
             <tr>

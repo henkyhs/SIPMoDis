@@ -26,7 +26,7 @@
             <?= $this->session->flashdata('successSelesaikan'); ?>
         </div>
     <?php endif; ?>
-      <button type="button" class="btn btn-sm btn-success mb-3" data-toggle="modal" data-target="#modalExport">
+      <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modalExport">
                 Cetak Laporan
             </button>
     <!-- Tabel dengan id agar dikenali oleh DataTables -->
@@ -73,8 +73,8 @@
             </select>
                 </th> -->
             <th style="width:160px;">
-            <button type="submit" class="btn btn-sm btn-primary ">Filter</button>
-            <a href="<?= site_url('peminjaman'); ?>" class="btn btn-sm btn-secondary ">Reset</a>
+            <button type="submit" class="btn-sm btn-primary btn-block">Filter</button>
+            <a href="<?= site_url('peminjaman'); ?>" class="btn btn-sm btn-outline-secondary btn-block">Reset</a>
 
           </th>
             </tr>

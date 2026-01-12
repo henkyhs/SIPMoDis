@@ -33,7 +33,7 @@ class Seksi extends CI_Controller {
         'namaSeksi'        => $this->input->get('namaSeksi', TRUE)
     ];
     //  Paginations
-        $perPage = 5;
+        $perPage = 20;
         $offset  = (int) $this->input->get('per_page'); // CI default query_string_segment = per_page
 
         $totalRows = $this->M_Seksi->countFiltered($filters);
@@ -68,6 +68,7 @@ class Seksi extends CI_Controller {
 
         $data['filters'] = $filters;
         $data['dataSeksi']  = $this->M_Seksi->getFiltered($filters,$perPage, $offset);
+        // var_dump($data['dataSeksi']->createdAt);
         $data['total']     = $totalRows;
         $data['pagination']= $this->pagination->create_links();
         $data['contentView'] = 'seksi/index';
@@ -93,7 +94,9 @@ class Seksi extends CI_Controller {
         $data = [
 			'idSeksi' => $this->input->post('idSeksi'),
             'namaSeksi' => $this->input->post('namaSeksi'),
-            'ket' => $this->input->post('ket')
+            'ket' => $this->input->post('ket'),
+            'createdAt' => date('Y-m-d H:i:s'),
+            'updatedAt' => date('Y-m-d H:i:s')
         ];
 
         $this->M_Seksi->insertData_seksi($data);
@@ -120,7 +123,8 @@ class Seksi extends CI_Controller {
         } else {
         $data = [
             'namaSeksi' => $this->input->post('namaSeksi'),
-            'ket' => $this->input->post('ket')
+            'ket' => $this->input->post('ket'),
+            'updatedAt' => date('Y-m-d H:i:s')
         ];
 
         $this->M_Seksi->update_seksi($id, $data);

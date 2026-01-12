@@ -31,7 +31,7 @@
                 </th>
                 <th style="width:160px;">
             <button type="submit" class="btn btn-sm btn-primary btn-block">Filter</button>
-            <a href="<?= site_url('seksi'); ?>" class="btn btn-sm btn-secondary btn-block">Reset</a>
+            <a href="<?= site_url('seksi'); ?>" class="btn btn-sm btn-outline-secondary btn-block">Reset</a>
           </th>
             </tr>
             <tr>

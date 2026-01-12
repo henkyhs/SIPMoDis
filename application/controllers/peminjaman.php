@@ -295,7 +295,12 @@ class Peminjaman extends CI_Controller {
             'createdAt' => date('Y-m-d H:i:s')
         ];
         // Untuk update status mobil di tbl_mobil
-        $dataMobil = ['kondisiMobil'=>2];
+        $dataMobil = 
+        [
+            'kondisiMobil'=>2,
+            'updatedAt'=> date('Y-m-d H:i:s')
+        
+        ];
 
 		$this->M_Peminjaman->update_mobilPinjam($idMobil,$dataMobil);
         $this->M_Peminjaman->insertData_log($dataLog);
@@ -555,7 +560,7 @@ class Peminjaman extends CI_Controller {
          require_role('2');
         $id = $this->session->userdata('idUser');
         $data['title'] = 'Riwayat Peminjaman';
-        $data['activeMenu'] = 'seksi';
+        $data['activeMenu'] = 'riwayatPeminjaman';
          $filters = [
         'namaPegawai'   => $this->input->get('namaPegawai', TRUE),
         'namaSeksi'        => $this->input->get('namaSeksi', TRUE),
@@ -605,7 +610,7 @@ class Peminjaman extends CI_Controller {
     public function formSavePengajuan()
     {
          require_role('2');
-        $data['activeMenu'] = 'seksi';
+        $data['activeMenu'] = 'pengajuan';
         $data['title'] = 'Pengajuan Peminjaman';
         $idUser = $this->session->userdata('idUser');
         $idSeksi = $this->session->userdata('idSeksi');
@@ -743,10 +748,10 @@ class Peminjaman extends CI_Controller {
     public function formUpdatePengajuan($id)
     {
          require_role('2');
-        $data['activeMenu'] = 'seksi';
+        $data['activeMenu'] = 'pengajuan';
         $data['title'] = 'Update Draft Pengajuan';
         $data['pinjam'] = $this->M_Peminjaman->getWhere_pengajuan($id);
-         $data['contentView'] = 'pinjamUser/formUpdatePengajuan';
+        $data['contentView'] = 'pinjamUser/formUpdatePengajuan';
         $this->load->view('template/main', $data);
     }
 
@@ -799,7 +804,7 @@ class Peminjaman extends CI_Controller {
     public function formPengembalianKunci($id)
     {
          require_role('2');
-        $data['activeMenu'] = 'dashboard';
+        $data['activeMenu'] = 'pengajuan';
         $data['title'] = 'Pengembalian Kunci';
         $data['pinjam'] = $this->M_Peminjaman->getWhere_pengajuan($id);
         $idPeminjaman = $data['pinjam']->idPeminjaman;

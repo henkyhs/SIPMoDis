@@ -90,7 +90,7 @@ class Mobil extends CI_Controller {
         'kondisiMobil'=> $this->input->get('kondisiMobil', TRUE), // 1 tersedia/2 dipinjam/dll
          ];
         //  Paginations
-        $perPage = 5; //Untuk limit berapa data yang ditampilkan
+        $perPage = 20; //Untuk limit berapa data yang ditampilkan
         $offset  = (int) $this->input->get('per_page'); // CI default query_string_segment = per_page
 
         $totalRows = $this->M_Mobil->countFiltered($filters);
@@ -159,7 +159,9 @@ class Mobil extends CI_Controller {
             'merkMobil' => $this->input->post('merkMobil'),
             'noBPKB' => $this->input->post('noBPKB'),
             'atasNama' => $this->input->post('atasNama'),
-            'ket' => $this->input->post('ket')
+            'ket' => $this->input->post('ket'),
+            'createdAt' => date('Y-m-d H:i:s'),
+            'updatedAt' => date('Y-m-d H:i:s')
         ];
         $this->M_Mobil->insertData_mobil($data);
         $this->session->set_flashdata('successAdd', 'Data berhasil ditambahkan');
@@ -221,7 +223,8 @@ class Mobil extends CI_Controller {
             'merkMobil' => $this->input->post('merkMobil'),
             'noBPKB' => $this->input->post('noBPKB'),
             'atasNama' => $this->input->post('atasNama'),
-            'ket' => $this->input->post('ket')
+            'ket' => $this->input->post('ket'),
+            'updatedAt' => date('Y-m-d H:i:s')
         ];
         $this->M_Mobil->update_mobil($id, $data);
         $this->session->set_flashdata('successUpdate', 'Data berhasil diubah');

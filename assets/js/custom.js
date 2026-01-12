@@ -44,3 +44,23 @@ document.addEventListener('DOMContentLoaded', function () {
   // set kondisi awal (jika form edit / reload)
   toggleLampiran();
 });
+
+function togglePassword(btnId, inputId) {
+  document.getElementById(btnId).addEventListener('click', function () {
+    const input = document.getElementById(inputId);
+    const icon = this.querySelector('i');
+
+    if (input.type === 'passwordBaru') {
+      input.type = 'text';
+      icon.classList.remove('fa-eye');
+      icon.classList.add('fa-eye-slash');
+    } else {
+      input.type = 'passwordBaru';
+      icon.classList.remove('fa-eye-slash');
+      icon.classList.add('fa-eye');
+    }
+  });
+}
+
+togglePassword('togglePassword', 'passwordBaru');
+togglePassword('togglePassword2', 'konfirmasiPassword');

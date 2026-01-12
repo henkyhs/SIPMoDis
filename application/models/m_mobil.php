@@ -84,7 +84,7 @@ class M_Mobil extends CI_Model {
 	{
 		$this->_applyFilters($filters);
 
-		$this->db->order_by('createdAt', 'ASC');
+		$this->db->order_by('idMobil', 'ASC');
 		$this->db->limit($limit, $offset);
 
 		return $this->db->get()->result();

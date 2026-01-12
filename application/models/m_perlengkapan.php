@@ -37,7 +37,7 @@ class M_Perlengkapan extends CI_Model {
 	{
 		$this->_applyFilters($filters);
 
-		$this->db->order_by('createdAt', 'ASC');
+		$this->db->order_by('idPerlengkapan', 'ASC');
 		$this->db->limit($limit, $offset);
 
 		return $this->db->get()->result();

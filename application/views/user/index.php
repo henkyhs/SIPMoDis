@@ -48,7 +48,7 @@
                 </th>
             <th style="width:160px;">
                 <button type="submit" class="btn btn-sm btn-primary btn-block">Filter</button>
-            <a href="<?= site_url('user'); ?>" class="btn btn-sm btn-secondary btn-block">Reset</a>
+            <a href="<?= site_url('user'); ?>" class="btn btn-sm btn-outline-secondary btn-block">Reset</a>
           </th>
             </tr>
             <tr>
@@ -68,7 +68,10 @@
                 <?php $no=1; foreach($dataUser as $u): ?>
                 <tr>
                     <td><?= $no++ ?></td>
-					<td><?= $u->nip ?></td>
+					<td>
+                        <p class="text-m font-weight-bold mb-0"><?= $u->nip?></p>
+                        <p class="text-xs text-secondary mb-0">Terdaftar Sejak: <?= date('d M Y', strtotime($u->createdAt)); ?></p>
+                    </td>
                     <td><p class="text-m font-weight-bold mb-0"><?= $u->namaPegawai ?></p>
                         <p class="text-xs text-secondary mb-0"><?= $u->noHp ?></p></td>
 					<td><?= $u->namaSeksi ?></td>

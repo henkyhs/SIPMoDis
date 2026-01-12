@@ -1,5 +1,5 @@
 <div class="container mt-4">
-    <h2 class="mb-3">Riwayat Peminjaman</h2>
+    <h2 class="mb-3">Pengambilan Kunci Saat Ini</h2>
 
     <form method='GET' action ='<?= site_url('peminjaman/indexPengembalianKunci'); ?>'>
       <table class="table table-hover">
@@ -32,7 +32,7 @@
                 </th> -->
             <th style="width:160px;">
             <button type="submit" class="btn btn-sm btn-primary btn-block">Filter</button>
-            <a href="<?= site_url('peminjaman/indexPengambilanKunci'); ?>" class="btn btn-sm btn-secondary btn-block ">Reset</a>
+            <a href="<?= site_url('peminjaman/indexPengambilanKunci'); ?>" class="btn btn-sm btn-outline-secondary btn-block">Reset</a>
           </th>
         </tr>
     <tr>

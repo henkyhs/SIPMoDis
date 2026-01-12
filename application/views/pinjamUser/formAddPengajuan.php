@@ -85,5 +85,6 @@
 		</div>
         <button type="submit" class="btn btn-success btn-block" name="statusPinjam" value="1">Ajukan</button>
 		<button type="submit" class="btn btn-outline-primary btn-block" name="statusPinjam" value="0">Simpan sebagai Draft</button>
+        <a href="<?= site_url('peminjaman/indexPeminjam/') ?>" class="btn btn-outline-danger btn-block">Batal</a>
     </form>
 </div>
