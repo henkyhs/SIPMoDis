@@ -11,7 +11,7 @@
                  <th>
                       <input type="date" name="tglPeminjaman" class="form-control form-control-sm"
                       value="<?= htmlspecialchars($filters['tglPeminjaman'] ?? ''); ?>"
-                      placeholder="">
+                      placeholder="Cari Tanggal Peminjaman...">
                 </th>
                  <th>
                       <input type="text" name="namaPegawai" class="form-control form-control-sm"

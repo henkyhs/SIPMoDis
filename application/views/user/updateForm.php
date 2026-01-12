@@ -30,14 +30,14 @@
                   class="btn btn-sm btn-outline-danger"
                   onclick="return confirm('Yakin nonaktifkan akun?')"
                   name="isActive" value="0">
-            Nonaktifkan Akun
+            Nonaktifkan User
           </button>
         <?php else: ?>
           <button type="submit"
                   class="btn btn-sm btn-outline-success"
                   onclick="return confirm('Yakin aktifkan akun?')"
                   name="isActive" value="1">
-            Aktifkan Akun
+            Aktifkan User
           </button>
         <?php endif; ?>
       </form>

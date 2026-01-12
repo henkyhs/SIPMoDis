@@ -27,17 +27,17 @@
                  <th>
                       <input type="text" name="nip" class="form-control form-control-sm"
                       value="<?= htmlspecialchars($filters['nip'] ?? ''); ?>"
-                      placeholder="">
+                      placeholder="Cari NIP...">
                 </th>
                  <th>
                       <input type="text" name="namaPegawai" class="form-control form-control-sm"
                       value="<?= htmlspecialchars($filters['namaPegawai'] ?? ''); ?>"
-                      placeholder="...">
+                      placeholder="Cari nama pegawai...">
                 </th>
                  <th>
                       <input type="text" name="namaSeksi" class="form-control form-control-sm"
                       value="<?= htmlspecialchars($filters['namaSeksi'] ?? ''); ?>"
-                      placeholder="...">
+                      placeholder="Cari nama seksi...">
                 </th>
                 <th>
                 <select name="role" class="form-control form-control-sm">

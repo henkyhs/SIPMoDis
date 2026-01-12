@@ -28,7 +28,7 @@
                  <th>
                       <input type="text" name="namaPerlengkapan" class="form-control form-control-sm"
                       value="<?= htmlspecialchars($filters['namaPerlengkapan'] ?? ''); ?>"
-                      placeholder="">
+                      placeholder="Cari Nama Perlengkapan...">
                 </th>
                 <th style="width:160px;">
             <button type="submit" class="btn btn-sm btn-primary btn-block">Filter</button>
