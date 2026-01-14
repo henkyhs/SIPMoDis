@@ -55,7 +55,15 @@ class M_Mobil extends CI_Model {
 		$this->db->where('kondisiMobil', 1);
     	return $this->db->count_all_results('tbl_mobil');
 	}
-	 public function delete_mobil($id) {
+
+	public function hitungMobilTersediaPeminjam($transmisi)
+	{
+		$this->db->where('kondisiMobil',1);
+		$this->db->where('transmisi',$transmisi);
+		return $this->db->count_all_results('tbl_mobil');
+	}
+
+	public function delete_mobil($id) {
         return $this->db->delete('tbl_mobil', ['idMobil' => $id]);
     }
 
@@ -101,6 +109,7 @@ class M_Mobil extends CI_Model {
 		$this->db->where('kondisiMobil', '1');
 		return $this->db->get('tbl_mobil')->result();
 	}
+
 	
 	public function createId_Mobil()   {
 		  $this->db->select('RIGHT(tbl_mobil.idMobil,4) as kode', FALSE);

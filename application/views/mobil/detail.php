@@ -58,6 +58,14 @@
               </div>
             </div>
 
+            <div class="col-md-6 mb-3">
+              <div class="text-muted small">Tahun Pembuatan</div>
+              <div class="font-weight-bold">
+                <?= htmlspecialchars($mobil->tahun) ?>
+              </div>
+            </div>
+
+
           </div>
         </div>
 

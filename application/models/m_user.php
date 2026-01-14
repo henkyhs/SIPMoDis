@@ -16,16 +16,17 @@ class M_User extends CI_Model {
 	public function getAllData_User()
 	{
 		$this->db->select('tbl_userpegawai.*,tbl_seksi.namaSeksi');
-		$this->db->join('tbl_seksi','tbl_userpegawai.idSeksi = tbl_seksi.idSeksi');
+		$this->db->join('tbl_seksi','tbl_userpegawai.idSeksi = tbl_seksi.idSeksi','left');
 		$this->db->from('tbl_userpegawai');
 		return $this->db->get()->result();
 	}
 
 	private function _applyFilters(array $filters)
 	{
+		$this->db->select('tbl_userpegawai.*,tbl_seksi.namaSeksi');
 		$this->db->from('tbl_userpegawai');
-		$this->db->join('tbl_seksi','tbl_userpegawai.idSeksi = tbl_seksi.idSeksi');
-
+		$this->db->join('tbl_seksi','tbl_userpegawai.idSeksi = tbl_seksi.idSeksi','left');
+		$this->db->order_by('tbl_userpegawai.createdAt', 'DESC');
 		// LIKE untuk text
 		if (!empty($filters['nip'])) {
 			$this->db->like('nip', $filters['nip']);

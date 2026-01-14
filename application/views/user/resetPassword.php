@@ -29,15 +29,6 @@
             <div class="input-group">
                 <input type="password" name="passwordLama" id="passwordLama" 
                     class="form-control" required>
-                <div class="input-group-append">
-                    <button 
-                        class="btn btn-outline-secondary" 
-                        type="button"
-                        id="togglePassword"
-                    >
-                        <i class="fa fa-eye"></i>
-                    </button>
-                </div>
             </div>
             
         </div>
@@ -47,15 +38,6 @@
             <div class="input-group">
                 <input type="password" name="passwordBaru" id="passwordBaru" 
                     class="form-control" required>
-                <div class="input-group-append">
-                    <button 
-                        class="btn btn-outline-secondary" 
-                        type="button"
-                        id="togglePassword"
-                    >
-                        <i class="fa fa-eye"></i>
-                    </button>
-                </div>
             </div>
         </div>
 		<!-- NIP -->
@@ -64,15 +46,6 @@
             <div class="input-group">
                 <input type="password" name="konfirmasiPassword" id="konfirmasiPassword" 
                     class="form-control" required>
-                <div class="input-group-append">
-                    <button 
-                        class="btn btn-outline-secondary" 
-                        type="button"
-                        id="togglePassword"
-                    >
-                        <i class="fa fa-eye"></i>
-                    </button>
-                </div>
             </div>
         </div>
 	

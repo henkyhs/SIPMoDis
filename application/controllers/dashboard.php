@@ -29,8 +29,12 @@ class Dashboard extends CI_Controller {
 		elseif ($role==2){
 			$id = $this->session->userdata('idUser');
 			$idSeksi = $this->session->userdata('idSeksi');
+			$matic = 1;
+			$manual = 2;
 			$data['riwayatUser'] = $this->M_Peminjaman->getLimaRiwayatUser($id);
 			$data['statusTerakhir'] = $this->M_Peminjaman->getLastAktifByUser($id);
+			$data['hitungMatic'] = $this->M_Mobil->hitungMobilTersediaPeminjam($matic);
+			$data['hitungManual'] = $this->M_Mobil->hitungMobilTersediaPeminjam($manual);
 			 if ($this->M_Peminjaman->hasCatatanPengembalianBySeksi($idSeksi)) {
 					$data['warningCatatan'] = true;
 			} else {

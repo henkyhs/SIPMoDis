@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2026 at 05:29 AM
+-- Generation Time: Jan 14, 2026 at 04:11 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -35,25 +35,6 @@ CREATE TABLE `tbl_logpeminjaman` (
   `createdAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tbl_logpeminjaman`
---
-
-INSERT INTO `tbl_logpeminjaman` (`idLog`, `idPeminjaman`, `aksi`, `idUser`, `createdAt`) VALUES
-('Log-0000000001', 'PM-0000000001', 0, 'U-0003', '2026-01-12 08:55:44'),
-('Log-0000000002', 'PM-0000000001', 0, 'U-0003', '2026-01-12 09:00:02'),
-('Log-0000000003', 'PM-0000000001', 1, 'U-0003', '2026-01-12 09:00:41'),
-('Log-0000000004', 'PM-0000000001', 2, 'U-0001', '2026-01-12 09:06:45'),
-('Log-0000000005', 'PM-0000000001', 3, 'U-0001', '2026-01-12 09:24:23'),
-('Log-0000000006', 'PM-0000000001', 4, 'U-0003', '2026-01-12 09:39:02'),
-('Log-0000000007', 'PM-0000000001', 8, 'U-0001', '2026-01-12 09:44:06'),
-('Log-0000000008', 'PM-0000000002', 1, 'U-0003', '2026-01-12 09:46:21'),
-('Log-0000000009', 'PM-0000000002', 2, 'U-0001', '2026-01-12 10:43:58'),
-('Log-0000000010', 'PM-0000000002', 3, 'U-0001', '2026-01-12 10:48:21'),
-('Log-0000000011', 'PM-0000000002', 4, 'U-0003', '2026-01-12 10:50:45'),
-('Log-0000000012', 'PM-0000000002', 7, 'U-0001', '2026-01-12 10:51:13'),
-('Log-0000000013', 'PM-0000000002', 8, 'U-0001', '2026-01-12 10:51:59');
-
 -- --------------------------------------------------------
 
 --
@@ -69,6 +50,7 @@ CREATE TABLE `tbl_mobil` (
   `noBPKB` varchar(10) NOT NULL,
   `atasNama` varchar(100) NOT NULL,
   `merkMobil` varchar(100) NOT NULL,
+  `tahun` varchar(4) NOT NULL,
   `ket` varchar(100) NOT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL
@@ -78,13 +60,13 @@ CREATE TABLE `tbl_mobil` (
 -- Dumping data for table `tbl_mobil`
 --
 
-INSERT INTO `tbl_mobil` (`idMobil`, `namaMobil`, `kondisiMobil`, `platNomor`, `transmisi`, `noBPKB`, `atasNama`, `merkMobil`, `ket`, `createdAt`, `updatedAt`) VALUES
-('M-0001', 'Kijang Innova G 1', 2, 'B 1371 KQ', 2, 'Data 1', 'Kanwil DJP Jawa Barat II', 'Toyota', '', NULL, '2026-01-12 06:10:56'),
-('M-0002', 'Kijang Innova G 2', 3, 'B 1374 KQ', 2, 'Data 2', 'Kanwil DJP Jawa Barat II', 'Toyota', '', NULL, '2026-01-12 10:59:45'),
-('M-0003', 'Kijang Innova G 3', 1, 'B 1382 N', 2, 'Data 3', 'Kanwil DJP Jawa Barat II', 'Toyota', '', NULL, '2026-01-12 06:11:23'),
-('M-0004', 'Kijang Innova G 4', 1, 'B 1377 K', 2, 'Data 4', 'Kanwil DJP Jawa Barat II', 'Toyota', '', NULL, '2026-01-12 06:11:38'),
-('M-0005', 'Kijang Innova G 5', 1, 'B 1375 Q', 2, 'Data 5', 'Kanwil DJP Jawa Barat II', 'Toyota', '', NULL, '2026-01-12 06:11:50'),
-('M-0006', 'XPander 1.5L Exceed-K', 1, 'B 1562 QN', 1, 'Data 6', 'KPP Pratama Pondok Gede', 'Mitshubishi', '', NULL, '2026-01-12 06:12:02');
+INSERT INTO `tbl_mobil` (`idMobil`, `namaMobil`, `kondisiMobil`, `platNomor`, `transmisi`, `noBPKB`, `atasNama`, `merkMobil`, `tahun`, `ket`, `createdAt`, `updatedAt`) VALUES
+('M-0001', 'Kijang Innova G 1', 1, 'B 1371 KQN', 2, 'Data 1', 'Kanwil DJP Jawa Barat II', 'Toyota', '2015', '', NULL, '2026-01-14 22:05:36'),
+('M-0002', 'Kijang Innova G 2', 1, 'B 1374 KQ', 2, 'Data 2', 'Kanwil DJP Jawa Barat II', 'Toyota', '', '', NULL, '2026-01-14 21:34:14'),
+('M-0003', 'Kijang Innova G 3', 1, 'B 1382 N', 2, 'Data 3', 'Kanwil DJP Jawa Barat II', 'Toyota', '', '', NULL, '2026-01-14 21:34:05'),
+('M-0004', 'Kijang Innova G 4', 1, 'B 1377 K', 2, 'Data 4', 'Kanwil DJP Jawa Barat II', 'Toyota', '', '', NULL, '2026-01-13 14:30:47'),
+('M-0005', 'Kijang Innova G 5', 1, 'B 1375 Q', 2, 'Data 5', 'Kanwil DJP Jawa Barat II', 'Toyota', '', '', NULL, '2026-01-12 06:11:50'),
+('M-0006', 'XPander 1.5L Exceed-K', 1, 'B 1562 QN', 1, 'Data 6', 'KPP Pratama Pondok Gede', 'Mitshubishi', '', '', NULL, '2026-01-12 06:12:02');
 
 -- --------------------------------------------------------
 
@@ -115,14 +97,6 @@ CREATE TABLE `tbl_peminjaman` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_peminjaman`
---
-
-INSERT INTO `tbl_peminjaman` (`idPeminjaman`, `idPeminjam`, `idSeksi`, `tglPeminjaman`, `tglPengembalian`, `preferensiTransmisi`, `keperluan`, `tujuan`, `lampiran`, `idMobil`, `token`, `statusPinjam`, `bensinPemakaian`, `bensinInspeksi`, `catatanPeminjam`, `catatanInspeksi`, `idVerifikator`, `idPenerima`, `idPemberi`, `createdAt`, `updatedAt`) VALUES
-('PM-0000000001', 'U-0003', 'S-0007', '2026-01-12', '2026-01-12', 3, 1, 'Pondok Gede', '', 'M-0002', 'DHZEP67J', 8, 5, 4, '', '', 'U-0001', 'U-0001', 'U-0001', '2026-01-12 08:55:44', '2026-01-12 09:44:06'),
-('PM-0000000002', 'U-0003', 'S-0007', '2026-01-12', '2026-01-12', 3, 2, 'Jakasampurna', NULL, 'M-0002', 'ATYDYBYX', 8, 4, 3, '', '', 'U-0001', 'U-0001', 'U-0001', '2026-01-12 09:46:21', '2026-01-12 10:51:59');
 
 -- --------------------------------------------------------
 
@@ -163,16 +137,6 @@ CREATE TABLE `tbl_perlengkapanpeminjaman` (
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tbl_perlengkapanpeminjaman`
---
-
-INSERT INTO `tbl_perlengkapanpeminjaman` (`idPerlengkapanPeminjaman`, `idPeminjaman`, `idPerlengkapan`, `isDikembalikan`, `isAda`, `status`) VALUES
-(31, 'PM-0000000001', 'P0001', 1, 0, 0),
-(32, 'PM-0000000001', 'P0002', 1, 0, 0),
-(33, 'PM-0000000002', 'P0002', 1, 1, 1),
-(34, 'PM-0000000002', 'P0003', 1, 0, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -203,7 +167,7 @@ INSERT INTO `tbl_seksi` (`idSeksi`, `namaSeksi`, `ket`, `createdAt`, `updatedAt`
 ('S-0009', 'Pengawasan 4', '', NULL, NULL),
 ('S-0010', 'Pengawasan 5', '', NULL, NULL),
 ('S-0011', 'Pengawasan 6', '', NULL, NULL),
-('S-0012', 'Fungsional', '', NULL, NULL);
+('S-0012', 'Fungsional Pemeriksa Pajak', '', NULL, '2026-01-14 21:48:58');
 
 -- --------------------------------------------------------
 
@@ -230,13 +194,23 @@ CREATE TABLE `tbl_userpegawai` (
 
 INSERT INTO `tbl_userpegawai` (`idUser`, `password`, `namaPegawai`, `nip`, `idSeksi`, `role`, `noHp`, `isActive`, `createdAt`, `updatedAt`) VALUES
 ('U-0001', '$2y$10$MX1IbzD28FtlGHLLL1rBE.eaFSNiGdFXf8O3dQoB2cw47FvypfzxG', 'Admin Admin', '01010101', 'S-0001', 1, '087897877411', 1, NULL, '2026-01-08 00:00:00'),
-('U-0002', '$2y$10$wbPRefIsC0oH2a2/HhNkGe.9VmoXw.g75HMMHbuJGc3.cczZjQNXe', 'Was 1', '000000002', 'S-0006', 2, '08129991023', 1, '2026-01-09 03:35:42', '2026-01-09 00:00:00'),
-('U-0003', '$2y$10$LiH4NYqx9VYZJ50hYl//KewxR6oSpUoQNEv4PRnUWDI3qpFnVABWe', 'Was 2', '000000003', 'S-0007', 2, '08129991023', 1, '2026-01-09 03:36:14', '2026-01-09 00:00:00'),
-('U-0004', '$2y$10$xXpUcVFH/IHLUSBhnkHWSex.X2UqsO5.RF.9OqC9ZVX6UN0grPaBq', 'Was 3', '000000004', 'S-0008', 2, '08129991023', 1, '2026-01-09 03:37:24', NULL),
-('U-0005', '$2y$10$V.ZtR8AOM0qwAYwwPqNjZeTTmGyIQKn1xhGbG2uWzYDjSuqxNkPz6', 'Admin 1', '000000005', 'S-0001', 1, '086612357833', 1, '2026-01-09 03:38:08', NULL),
-('U-0006', '$2y$10$cq/Brwunh/l8WDu/oorhKuYKjWwbi1Xl4ICi7Z8El3tqUvJQN8/4i', 'PKD', '000000006', 'S-0003', 2, '081367642788', 0, '2026-01-09 03:38:36', '2026-01-12 06:29:49'),
-('U-0007', '$2y$10$RyIpgUHXcyr8avmfxJoLsuA69ztX78Qp1Cmb46NAPL/MZPX2ah9By', 'Was 2 Lain', '000000007', 'S-0007', 2, '08129991023', 1, '2026-01-09 04:10:29', '2026-01-09 00:00:00'),
-('U-0008', '$2y$10$B4K49RM76RZBnUnwXmVYI.jLkQLzxj51kBAZSJFlP0//wPyIu6uTK', 'Penyuluh', '000000008', 'S-0002', 2, '08129991023', 1, '2026-01-12 06:27:19', '2026-01-12 06:28:57');
+('U-0002', '$2y$10$wbPRefIsC0oH2a2/HhNkGe.9VmoXw.g75HMMHbuJGc3.cczZjQNXe', 'Muchamad Riya Zakariya', '910222958', 'S-0006', 2, '0', 1, '2026-01-09 03:35:42', '2026-01-14 21:44:47'),
+('U-0003', '$2y$10$LiH4NYqx9VYZJ50hYl//KewxR6oSpUoQNEv4PRnUWDI3qpFnVABWe', 'Alathiev Cahyo Baskoro', '817932292', 'S-0003', 2, '0', 1, '2026-01-09 03:36:14', '2026-01-14 21:44:18'),
+('U-0004', '$2y$10$xXpUcVFH/IHLUSBhnkHWSex.X2UqsO5.RF.9OqC9ZVX6UN0grPaBq', 'Dudy Satriya Widjana', '060098955', 'S-0005', 2, '0', 1, '2026-01-09 03:37:24', '2026-01-14 21:43:45'),
+('U-0005', '$2y$10$QfTc/jMeRvTP18PzKrsWTe6FFyWvL7HhDnnrGXnFKtLzpxhvQWBZu', 'Nuris Dwi Wardiansah', '060103371', 'S-0002', 2, '0', 1, '2026-01-09 03:38:08', '2026-01-14 21:37:56'),
+('U-0006', '$2y$10$cq/Brwunh/l8WDu/oorhKuYKjWwbi1Xl4ICi7Z8El3tqUvJQN8/4i', 'Safira Laras Pramesthi', '958635283', 'S-0001', 2, '0', 1, '2026-01-09 03:38:36', '2026-01-14 21:37:26'),
+('U-0007', '$2y$10$RyIpgUHXcyr8avmfxJoLsuA69ztX78Qp1Cmb46NAPL/MZPX2ah9By', 'Veny Ardian Sari', '060109892', 'S-0001', 2, '0', 1, '2026-01-09 04:10:29', '2026-01-14 21:36:59'),
+('U-0008', '$2y$10$B4K49RM76RZBnUnwXmVYI.jLkQLzxj51kBAZSJFlP0//wPyIu6uTK', 'Zahrani Suryati Liza', '830602903', 'S-0001', 2, '0', 1, '2026-01-12 06:27:19', '2026-01-14 21:36:25'),
+('U-0009', '$2y$10$IT5vL2RUfG0.vgB0/HJWjOv6pnZjCGAPDrTuKo/FLeSC4VKTQIywu', 'Ade Mulya Ramadhan', '810201610', 'S-0001', 2, '0000000000', 1, '2026-01-12 13:55:40', '2026-01-14 21:35:25'),
+('U-0010', '$2y$10$xBRrM0s5r3Uiih6NrQV1v.oquAdgAwrTS95K1pRSr.T.tZXxAAsT.', 'Intan Budiastri', '815101198', 'S-0001', 1, '0000000000', 1, '2026-01-13 14:29:45', '2026-01-14 21:34:58'),
+('U-0011', '$2y$10$fgw6dxwoM2kzJZcNaBTdi.ZNOFeieQWMFg/BjSt1./vw4tZIylvR2', 'Yayang Fadhyla Artamevia', '958633549', 'S-0001', 1, '0000000000000', 1, '2026-01-14 21:21:14', '2026-01-14 21:21:14'),
+('U-0012', '$2y$10$eBEpYegqPelWn.UDhvHfHuSjXLv3xmCvu3QoORs1SKBtCWo8/4w7y', 'Jangkon Ivan Primaristo Sitohang', '910222977', 'S-0007', 2, '0', 1, '2026-01-14 21:46:13', '2026-01-14 21:46:13'),
+('U-0013', '$2y$10$.HdUXMOPj2pvmRBULoZu1ulLa/zrjM.rVCc4JalziATqnd34Skeca', 'Paska Marpaung', '060109173', 'S-0008', 2, '0', 1, '2026-01-14 21:46:41', '2026-01-14 21:46:41'),
+('U-0014', '$2y$10$mwxM20xYZ6LmgFCluNT4AewJhEUWm3jxRZi6wj2KKYcUhvD4enrsy', 'Muhamad Choirul Rizqi', '910222534', 'S-0009', 2, '0', 1, '2026-01-14 21:47:13', '2026-01-14 21:47:13'),
+('U-0015', '$2y$10$fdXTs5H7eVVcxfsdNC2QxeYVAQj1s.fCx0UxVxcOzcrLskx/j9sUW', 'Muhammad Prabowo', '917318431', 'S-0010', 2, '0', 1, '2026-01-14 21:47:37', '2026-01-14 21:47:37'),
+('U-0016', '$2y$10$CuadAcRqnVUaPm.StdW5muHPb0.KC4HtnBnYqPjFwBInq/iBkBKDa', 'Wildan Amri Yahya', '910222398', 'S-0011', 2, '0', 1, '2026-01-14 21:48:02', '2026-01-14 21:48:02'),
+('U-0017', '$2y$10$O7ZDDsKt7EeEKVXxvEX.Au5nKC.cC78VZsMt7l7fEzlw/jVnBKFDq', 'Arif Indra Kusuma', '830602280', 'S-0012', 2, '0', 1, '2026-01-14 21:48:23', '2026-01-14 21:48:23'),
+('U-0018', '$2y$10$PFQ1qJAbtxx3MOBt4.iN.e5IVW.UGQCXPGWWGlfMaNe3M2atTKODi', 'Rivaldi Irvan', '830203566', 'S-0012', 2, '0', 1, '2026-01-14 21:48:45', '2026-01-14 21:48:45');
 
 --
 -- Indexes for dumped tables
@@ -293,7 +267,7 @@ ALTER TABLE `tbl_userpegawai`
 -- AUTO_INCREMENT for table `tbl_perlengkapanpeminjaman`
 --
 ALTER TABLE `tbl_perlengkapanpeminjaman`
-  MODIFY `idPerlengkapanPeminjaman` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `idPerlengkapanPeminjaman` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- Constraints for dumped tables

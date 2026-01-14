@@ -30,7 +30,7 @@
               <div class="col-md-6 mb-2">
                 <div class="text-muted small">Merk / Tipe</div>
                 <div class="font-weight-bold">
-                  <?= htmlspecialchars($pinjam->merkMobil ?? '-') ?> / <?= htmlspecialchars($pinjam->namaMobil ?? '') ?>
+                  <?= htmlspecialchars($pinjam->merkMobil ?? '-') ?> / <?= htmlspecialchars($pinjam->namaMobil ?? '-') ?>
                 </div>
               </div>
               <div class="col-md-6 mb-2">

@@ -98,6 +98,12 @@
                    class="form-control">
             <div class="text-danger"><?= form_error('atasNama'); ?></div>
         </div>
+        <div class="mb-3">
+            <label for="tahun">Tahun Pembuatan</label>
+            <input type="text" name="tahun" id="tahun" 
+                   class="form-control">
+            <div class="text-danger"><?= form_error('tahun'); ?></div>
+        </div>
 		<div class="form-group">
     		<label for="exampleFormControlTextarea1">Keterangan (Opsional)</label>
     		<textarea class="form-control" name="ket" id="keterangan" rows="3"></textarea>

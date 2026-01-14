@@ -75,6 +75,16 @@ class Mobil extends CI_Controller {
             ]
         );
 
+         $this->form_validation->set_rules(
+            'tahun',
+            'tahun',
+            'required|trim|numeric',
+            [
+                'required' => 'Kolom tidak boleh kosong',
+                'numeric' => 'Tahun harus diisi angka'
+            ]
+        );
+
         
     }   
 
@@ -160,6 +170,7 @@ class Mobil extends CI_Controller {
             'noBPKB' => $this->input->post('noBPKB'),
             'atasNama' => $this->input->post('atasNama'),
             'ket' => $this->input->post('ket'),
+            'tahun' => $this->input->post('tahun'),
             'createdAt' => date('Y-m-d H:i:s'),
             'updatedAt' => date('Y-m-d H:i:s')
         ];
@@ -223,6 +234,7 @@ class Mobil extends CI_Controller {
             'merkMobil' => $this->input->post('merkMobil'),
             'noBPKB' => $this->input->post('noBPKB'),
             'atasNama' => $this->input->post('atasNama'),
+            'tahun' => $this->input->post('tahun'),
             'ket' => $this->input->post('ket'),
             'updatedAt' => date('Y-m-d H:i:s')
         ];
